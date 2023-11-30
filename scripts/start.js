@@ -50,13 +50,13 @@ const HOST = process.env.HOST || '0.0.0.0';
 if (process.env.HOST) {
   console.log(
     chalk.cyan(
-      `Attempting to bind to HOST environment variable: ${chalk.yellow(
+      `试图绑定到HOST环境变量: ${chalk.yellow(
         chalk.bold(process.env.HOST)
       )}`
     )
   );
   console.log(
-    `If this was unintentional, check that you haven't mistakenly set it in your shell.`
+    `如果这是无意的，请检查您是否错误地将其设置在shell中.`
   );
   console.log(
     `Learn more here: ${chalk.yellow('https://cra.link/advanced-config')}`
@@ -99,6 +99,7 @@ checkBrowsers(paths.appPath, isInteractive)
       useTypeScript,
       webpack,
     });
+
     // Load proxy config
     const proxySetting = require(paths.appPackageJson).proxy;
     const proxyConfig = prepareProxy(
@@ -122,12 +123,12 @@ checkBrowsers(paths.appPath, isInteractive)
       if (env.raw.FAST_REFRESH && semver.lt(react.version, '16.10.0')) {
         console.log(
           chalk.yellow(
-            `Fast Refresh requires React 16.10 or higher. You are using React ${react.version}.`
+            `快速刷新需要React 16.10或更高版本。你正在使用React ${react.version}.`
           )
         );
       }
 
-      console.log(chalk.cyan('Starting the development server...\n'));
+      console.log(chalk.cyan('启动开发服务器...\n'));
       openBrowser(urls.localUrlForBrowser);
     });
 
