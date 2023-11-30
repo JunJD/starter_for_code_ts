@@ -13,6 +13,7 @@
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-scripts": "5.0.1",
+    "source-map-explorer": "^2.5.3",
     "typescript": "^4.9.5",
     "web-vitals": "^2.1.4"
   },
@@ -20,7 +21,11 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+        "postinstall": "npx patch-package -y",
+    "preinstall": "npx only-allow pnpm",
+    "fix": "npx eslint --fix src/**/*.js src/*.js",
+    "analyze": "pnpm build && source-map-explorer 'build/static/js/*.js'"
   },
   "eslintConfig": {
     "extends": [
