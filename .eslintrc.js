@@ -8,7 +8,8 @@ module.exports = {
 	'extends': [
 		'eslint:recommended',
 		'plugin:@typescript-eslint/recommended',
-		'plugin:react/recommended'
+		'plugin:react/recommended',
+		'plugin:react/jsx-runtime'
 	],
 	'overrides': [
 		{
@@ -16,7 +17,7 @@ module.exports = {
 				'node': true
 			},
 			'files': [
-				'.eslintrc.{js,cjs}'
+				'.eslintrc.{js,cjs,ts,tsx}'
 			],
 			'parserOptions': {
 				'sourceType': 'script'
