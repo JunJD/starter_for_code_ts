@@ -1,6 +1,6 @@
 import React from 'react'
 import logo from './logo.svg'
-import './App.less'
+import '@/App.less'
 
 function App() {
 	return (

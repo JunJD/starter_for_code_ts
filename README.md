@@ -99,7 +99,8 @@ Then in 将webpack配置文件暴露出来，注意，这是不可逆的！！
 npm run eject
 ```
 修改config/webpack.config.js这个文件
-
+1. set alias
+2. add less-loader option additionalData
 
 
 

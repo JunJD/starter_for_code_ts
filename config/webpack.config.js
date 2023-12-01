@@ -176,12 +176,12 @@ module.exports = function (webpackEnv) {
             root: paths.appSrc,
           },
         },
-        {
+        (typeof preProcessor === "object" ? preProcessor : {
           loader: require.resolve(preProcessor),
           options: {
             sourceMap: true,
           },
-        }
+        })
       )
     }
     return loaders
@@ -320,6 +320,8 @@ module.exports = function (webpackEnv) {
           'scheduler/tracing': 'scheduler/tracing-profiling',
         }),
         ...(modules.webpackAliases || {}),
+
+        "@": path.join(__dirname, '../src'), // 注意这个路径是相对webpack.base.js的路径
       },
       plugins: [
         // Prevents users from importing files from outside of src/ (or node_modules/).
@@ -481,7 +483,13 @@ module.exports = function (webpackEnv) {
                   mode: 'icss',
                 },
               },
-                'less-loader'
+                // 'less-loader'
+                {
+                  loader: 'less-loader',
+                  options: {
+                    additionalData: "@import url('@/common/style/var.less');",
+                  },
+                }
               ),
               // Don't consider CSS imports dead code even if the
               // containing package claims to have no side effects.

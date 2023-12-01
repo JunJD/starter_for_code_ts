@@ -64,6 +64,7 @@ function getWebpackAliases(options = {}) {
   const baseUrlResolved = path.resolve(paths.appPath, baseUrl);
 
   if (path.relative(paths.appPath, baseUrlResolved) === '') {
+    console.log('paths.appSrc==>', paths.appSrc)
     return {
       src: paths.appSrc,
     };
