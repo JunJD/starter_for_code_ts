@@ -4,7 +4,9 @@ import './index.less'
 
 const HomeLeftSection: FC = () => {
 	return (
-		<div className='home-left-section'>haode</div>
+		<div className='home-left-section'>
+			1
+		</div>
 	)
 }
 

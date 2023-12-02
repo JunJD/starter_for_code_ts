@@ -10,7 +10,7 @@ import Navigation from '@/layout/Navigation'
 const Layout: FC = () => {
 	return (
 		<ParentWrapper>
-			<Navigation/>
+			<Navigation />
 			<MainContentWrapper>
 				{/* appbar */}
 				<LayoutAppBar />
