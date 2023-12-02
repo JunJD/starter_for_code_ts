@@ -1,6 +1,6 @@
 import { FC } from 'react'
-import MainContentWrapper from '@/components/MainContentWrapper'
-import ContentWrapper from '@/components/ContentWrapper'
+import MainContentWrapper from '@/layout/MainContentWrapper'
+import ContentWrapper from '@/layout/ContentWrapper'
 import LayoutAppBar from '@/layout/LayoutAppBar'
 import { Outlet } from 'react-router-dom'
 

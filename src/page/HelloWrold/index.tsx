@@ -1,6 +1,6 @@
 import { useSettings } from '@/common/hooks/useSettings'
 import { PaletteMode } from '@/common/types/theme'
-
+import './index.less'
 const HelloWrold = () => {
 	const { settings, saveSettings } = useSettings()
 	const switchTheme = (mode: PaletteMode) => {
