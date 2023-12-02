@@ -1,8 +1,8 @@
 import { FC } from 'react'
 import { baseComponents } from '@/common/types/com'
-
-const HelloWrold: FC<baseComponents> = ({ children }) => {
+import './index.less'
+const HomeWrapper: FC<baseComponents> = ({ children }) => {
 	return <div className="Home-wrapper">{children}</div>
 }
 
-export default HelloWrold
+export default HomeWrapper
