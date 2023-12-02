@@ -15,7 +15,7 @@ export type SettingsContextValue = {
 };
 
 const initialSettings: Settings = {
-	mode: themeConfig.mode,
+	mode: localStorage.getItem('theme') as PaletteMode ??  themeConfig.mode,
 	// navVisible: false,
 }
 

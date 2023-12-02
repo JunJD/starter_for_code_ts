@@ -14,7 +14,9 @@ const ThemeComponent: FC<ThemeComponentProps> = ({children, settings}) => {
 		if(currentTheme === settings.mode) {
 			console.log('与当前主题色一致')
 		}
+
 		themeMountNode?.setAttribute('data-theme', settings.mode)
+		localStorage.setItem('theme', settings.mode)
 	},[settings])
 	return (
 		<>

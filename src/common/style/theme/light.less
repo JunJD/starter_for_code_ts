@@ -1,5 +1,28 @@
-// 跟主题相关变量，通过属性选择器提升优先级
+// less-loader 打包时通过additionalData引入
 html[data-theme="light"]:root {
+  --main-color: 231, 227, 252;
+
   --bgcolor: red;
   --primarycolor: #415fff;
+
+  --primary: #9e69fd;
+  --secondary: #9c9fa4;
+  --success: #6ad01f;
+  --error: #ff6166;
+  --warning: #ffca64;
+  --info: #32baff;
+
+  --text-primary: rgba(var(--main-color), 0.87);
+  --text-secondary: rgba(var(--main-color), 0.68);
+  --text-disabled: rgba(var(--main-color), 0.38);
+
+  --background-paper: #fff;
+  --background-default: #f4f5fa;
+
+  --action-active: rgba(var(--main-color), 0.54);
+  --action-hover: rgba(var(--main-color), 0.04);
+  --action-selected: rgba(var(--main-color), 0.08);
+  --action-disabled: rgba(var(--main-color), 0.03);
+  --action-disabledBackground: rgba(var(--main-color), 0.18);
+  --action-focus: rgba(var(--main-color), 0.12);
 }
