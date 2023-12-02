@@ -1,5 +1,6 @@
 import React from 'react'
 import ReactDOM from 'react-dom/client'
+import '@/common/style/base.less'
 import './index.less'
 import App from './App'
 import reportWebVitals from './reportWebVitals'

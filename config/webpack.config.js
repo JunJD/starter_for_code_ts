@@ -487,7 +487,31 @@ module.exports = function (webpackEnv) {
                 {
                   loader: 'less-loader',
                   options: {
-                    additionalData: "@import url('@/common/style/var.less');",
+                    additionalData: async (content, loaderContext) => {
+                      const { resourcePath, rootContext } = loaderContext;
+                      const relativePath = path.relative(rootContext, resourcePath);
+                      console.log("🐥", relativePath)
+                      // await new Promise((resolve)=>{
+                      //   setTimeout(() => {
+                      //     resolve(1)
+                      //   }, 3000);
+                      // })
+                      if (relativePath === 'src/common/style/base.less') {
+                        const basic = paths.appSrc
+                        const themePath = '/common/style/theme'
+                        const current_path = path.join(basic, themePath)
+                        const items = fs.readdirSync(current_path);
+                        let theme = ''
+                        items && items.forEach((item) => {
+                          theme += `@import url('@${themePath}/${item}');`
+                        })
+                        const results = "@import url('@/common/style/var.less');" + content;
+                        if (theme) {
+                          return results + theme
+                        }
+                      }
+                      return content
+                    },
                   },
                 }
               ),

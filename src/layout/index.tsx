@@ -1,14 +1,13 @@
 import { FC } from 'react'
 import { Outlet } from 'react-router-dom'
-// import logo from '../logo.svg'
-// import './layout.less'
+import MainContentWrapper from '@/components/MainContentWrapper'
 
 const Layout: FC = () => {
 	return (
-		<div className="App">
+		<MainContentWrapper>
 			good
 			<Outlet/>
-		</div>
+		</MainContentWrapper>
 	)
 }
 
