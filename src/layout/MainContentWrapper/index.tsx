@@ -9,7 +9,11 @@ const MainContentWrapper: FC<baseComponents> = ({ children }) => {
 		})
 	}, [])
 
-	return <div className="layout-content-wrapper">{children}</div>
+	return (
+		<div className="layout-content-wrapper">
+			{children}
+		</div>
+	)
 }
 
 export default MainContentWrapper
