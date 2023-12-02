@@ -1,0 +1,18 @@
+.wrap {
+  overflow: auto;
+  height: auto;
+  &.scroll-wrap {
+    &::-webkit-scrollbar {
+      width: 5px;
+      height: 5px;
+    }
+    &::-webkit-scrollbar-thumb {
+      border-radius: 1em;
+      background-color: var(--ai-action-active);
+    }
+    &::-webkit-scrollbar-track {
+      border-radius: 1em;
+      background-color: var(--ai-background-paper);
+    }
+  }
+}

@@ -4,6 +4,7 @@ import { useEditor, EditorContent } from '@tiptap/react'
 import { TiptapEditorProps } from './props'
 import { TiptapExtensions } from './extensions'
 import './index.less'
+import ScrollWrap from '@/components/ScrollWrap'
 const Editor = () => {
 	const content = '<p>Hello World!</p>'
 	const editor = useEditor({
@@ -13,10 +14,15 @@ const Editor = () => {
 		autofocus: 'end',
 	})
 	return (
-		<div onClick={() => {
-			editor?.chain().focus().run()
-		}}>
-			{editor && <EditorContent editor={editor} />}
+		<div 
+			className='wrapper'
+			onClick={() => {
+				editor?.chain().focus().run()
+			}}>
+			<ScrollWrap>
+				{editor && <EditorContent editor={editor} />}
+			</ScrollWrap>
+			<div className='submit-button'>提交@</div>
 		</div>
 	)
 }

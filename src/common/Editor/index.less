@@ -1,11 +1,24 @@
-.editor {
-  width: 100%;
-  max-height: 300px;
-  overflow: auto;
-  border: none;
-  outline: none;
-  padding: 0px 10px;    
-  &::-webkit-scrollbar {
-    display: none;
+.wrapper {
+  border-radius: 6px;
+  .editor {
+    width: 100%;
+    box-sizing: border-box;
+    min-height: 200px;
+    max-height: 200px;
+    border: none;
+    outline: none;
+    padding: 0px 10px;
+  }
+  .submit-button {
+    margin: 20px;
+    margin-left: auto;
+
+    border: 1px solid var(--ai-border-main);
+    width: 80px;
+    cursor: pointer;
+    background-color: var(--ai-primary);
+    text-align: center;
+    height: 30px;
+    line-height: 30px;
   }
 }
