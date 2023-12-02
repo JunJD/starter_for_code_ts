@@ -1,3 +1,6 @@
+/**
+ * @deprecated demo
+ */
 class TxtPlugin {
     constructor(options = {}) {
         this.options = options;

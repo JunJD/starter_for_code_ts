@@ -1,21 +1,22 @@
-
-
-import { createContext, useState, ReactNode } from 'react'
+import { createContext, useState, ReactNode, useEffect } from 'react'
+import { debounce } from 'lodash'
 import { PaletteMode } from '@/common/types/theme'
 import themeConfig from '@/configs/themeConfig'
 
 export type Settings = {
-  mode: PaletteMode;
-  // navVisible: boolean;
+	mode: PaletteMode;
+	isThemeSys: boolean;
+	// navVisible: boolean; 
 };
 
 export type SettingsContextValue = {
-  settings: Settings;
-  saveSettings: (updatedSettings: Settings) => void;
+	settings: Settings;
+	saveSettings: (updatedSettings: Settings) => void;
 };
 
 const initialSettings: Settings = {
-	mode: localStorage.getItem('theme') as PaletteMode ??  themeConfig.mode,
+	mode: (localStorage.getItem('theme') as PaletteMode) ?? themeConfig.mode,
+	isThemeSys: true,
 	// navVisible: false,
 }
 
@@ -32,6 +33,31 @@ export const SettingsProvider = ({ children }: { children: ReactNode }) => {
 	const saveSettings = (updatedSettings: Settings) => {
 		setSettings(updatedSettings)
 	}
+
+	useEffect(() => {
+		const themeMedia = window.matchMedia('(prefers-color-scheme: light)')
+		const themeSysChange = debounce((e) => {
+			if (e.matches) {
+				setSettings({
+					...settings,
+					mode: 'light'
+				})
+			} else {
+				setSettings({
+					...settings,
+					mode: 'dark'
+				})
+			}
+		})
+		if (settings.isThemeSys) {
+			themeMedia.addEventListener('change', themeSysChange)
+		} else {
+			themeMedia.removeEventListener('change', themeSysChange)
+		}
+		return () => {
+			themeMedia.removeEventListener('change', themeSysChange)
+		}
+	}, [settings])
 
 	return (
 		<SettingsContext.Provider value={{ settings, saveSettings }}>

@@ -26,6 +26,9 @@ dependencies:
   '@types/jest':
     specifier: ^27.5.2
     version: registry.npmmirror.com/@types/jest@27.5.2
+  '@types/lodash':
+    specifier: ^4.14.202
+    version: registry.npmmirror.com/@types/lodash@4.14.202
   '@types/node':
     specifier: ^16.18.66
     version: registry.npmmirror.com/@types/node@16.18.66
@@ -104,6 +107,9 @@ dependencies:
   less-loader:
     specifier: ^7.3.0
     version: registry.npmmirror.com/less-loader@7.3.0(less@4.2.0)(webpack@5.89.0)
+  lodash:
+    specifier: ^4.17.21
+    version: registry.npmmirror.com/lodash@4.17.21
   mini-css-extract-plugin:
     specifier: ^2.4.5
     version: registry.npmmirror.com/mini-css-extract-plugin@2.7.6(webpack@5.89.0)
@@ -3278,6 +3284,12 @@ packages:
     resolution: {integrity: sha512-dRLjCWHYg4oaA77cxO64oO+7JwCwnIzkZPdrrC71jQmQtlhM556pwKo5bUzqvZndkVbeFLIIi+9TC40JNF5hNQ==, tarball: https://registry.npmmirror.com/@types/json5/-/json5-0.0.29.tgz}
     name: '@types/json5'
     version: 0.0.29
+    dev: false
+
+  registry.npmmirror.com/@types/lodash@4.14.202:
+    resolution: {integrity: sha512-OvlIYQK9tNneDlS0VN54LLd5uiPCBOp7gS5Z0f1mjoJYBrtStzgmJBxONW3U6OZqdtNzZPmn9BS/7WI7BFFcFQ==, tarball: https://registry.npmmirror.com/@types/lodash/-/lodash-4.14.202.tgz}
+    name: '@types/lodash'
+    version: 4.14.202
     dev: false
 
   registry.npmmirror.com/@types/mime@1.3.5:

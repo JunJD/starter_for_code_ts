@@ -1,1 +1,1 @@
-export type PaletteMode = 'light' | 'dark';
+export type PaletteMode = "light" | "dark";
