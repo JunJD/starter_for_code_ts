@@ -1,11 +1,11 @@
 import { FC } from 'react'
-
+import Editor from '@/common/Editor'
 import './index.less'
 
 const HomeLeftSection: FC = () => {
 	return (
 		<div className='home-left-section'>
-			1
+			<Editor/>
 		</div>
 	)
 }

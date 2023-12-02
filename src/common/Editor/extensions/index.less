@@ -1,0 +1,47 @@
+.slash-command {
+  z-index: 50;
+  min-height: 330px;
+  max-height: 330px;
+  width: 272px;
+  overflow-y: auto;
+  border-radius: 0.375rem;
+  border: 1px var(--ai-border-main) solid;
+  background-color: var(--ai-background-paper);
+  padding-left: 0.25rem;
+  padding-right: 0.25rem;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
+  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
+    0 2px 4px -1px rgba(0, 0, 0, 0.06);
+  transition-property: all;
+  transition-duration: 0.3s;
+  transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+  &-item {
+    border: none;
+    display: flex;
+    width: 100%;
+    align-items: center;
+    gap: 10px;
+    border-radius: 6px;
+    text-align: left;
+    color: var(--ai-text-primary);
+    background-color: var(--ai-background-paper);
+    padding: 4px 0;
+    &:hover {
+      color: var(--ai-text-hover);
+
+      background-color: var(--ai-background-default);
+    }
+    .item-text {
+      display: flex;
+      flex-direction: column;
+      &-description {
+        font-size: 12px;
+      }
+      &-title {
+        font-size: 14px;
+        font-weight: 600;
+      }
+    }
+  }
+}

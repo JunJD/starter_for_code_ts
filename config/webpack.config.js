@@ -496,6 +496,8 @@ module.exports = function (webpackEnv) {
                       //     resolve(1)
                       //   }, 3000);
                       // })
+
+                      const results = "@import url('@/common/style/var.less');" + content;
                       if (relativePath === 'src/common/style/base.less') {
                         const basic = paths.appSrc
                         const themePath = '/common/style/theme'
@@ -505,12 +507,11 @@ module.exports = function (webpackEnv) {
                         items && items.forEach((item) => {
                           theme += `@import url('@${themePath}/${item}');`
                         })
-                        const results = "@import url('@/common/style/var.less');" + content;
                         if (theme) {
                           return results + theme
                         }
                       }
-                      return content
+                      return results
                     },
                   },
                 }

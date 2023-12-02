@@ -101,6 +101,15 @@ npm run eject
 修改config/webpack.config.js这个文件
 1. set alias
 2. add less-loader option additionalData
+3. 同样利用additionalData配合data-theme做css变量来做主题切换
+
+
+### 引入tiptap做编辑输入框
+```bash
+pnpm install @tiptap/react @tiptap/pm
+```
+未安装@tiptap/starter-kit，因为暂不使用
+
 
 
 
