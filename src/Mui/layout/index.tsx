@@ -1,11 +1,7 @@
-import * as React from 'react'
-// import { CssVarsProvider } from '@mui/joy/styles'
-// import CssBaseline from '@mui/joy/CssBaseline'
+import { useState, useEffect } from 'react'
 import Button from '@mui/joy/Button'
 import Stack from '@mui/joy/Stack'
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded'
-import PeopleAltRoundedIcon from '@mui/icons-material/PeopleAltRounded'
-import FolderRoundedIcon from '@mui/icons-material/FolderRounded'
 
 
 import { Outlet } from 'react-router-dom'
@@ -14,10 +10,25 @@ import Navigation from './Navigation'
 import RootWrap from './RootWrap'
 import HeaderWrap from './HeaderWrap'
 import NavigationWrap from './NavigationWrap'
+import { ConfigEnum, getHeaderRouterConfig } from '@/Mui/common/configs/headerRouterConfig'
+import { useNavigate, useLocation } from 'react-router-dom'
 
+const headerRouterConfiglist = getHeaderRouterConfig()
 export default function TeamExample() {
-	const [drawerOpen] = React.useState(false)
+	const [drawerOpen] = useState(false)
 
+	const navigate = useNavigate()
+	const location = useLocation()
+	const [currentActive, setActive] = useState<ConfigEnum>('chats')
+
+	const handleTo = (key: ConfigEnum) => {
+		navigate(key)
+	}
+	useEffect(()=>{
+		const pathnameList = location.pathname.split('/')
+		const targetActive = pathnameList[1] as ConfigEnum
+		targetActive !== currentActive &&  setActive(targetActive)
+	},[location.pathname])
 
 	return (
 		<div>
@@ -38,40 +49,23 @@ export default function TeamExample() {
 					borderColor: 'divider',
 				}}
 			>
-				<Button
-					variant="plain"
-					color="neutral"
-					component="a"
-					href="/joy-ui/getting-started/templates/email/"
-					size="sm"
-					startDecorator={<EmailRoundedIcon />}
-					sx={{ flexDirection: 'column', '--Button-gap': 0 }}
-				>
-          Email
-				</Button>
-				<Button
-					variant="plain"
-					color="neutral"
-					aria-pressed="true"
-					component="a"
-					href="/joy-ui/getting-started/templates/team/"
-					size="sm"
-					startDecorator={<PeopleAltRoundedIcon />}
-					sx={{ flexDirection: 'column', '--Button-gap': 0 }}
-				>
-          Team
-				</Button>
-				<Button
-					variant="plain"
-					color="neutral"
-					component="a"
-					href="/joy-ui/getting-started/templates/files/"
-					size="sm"
-					startDecorator={<FolderRoundedIcon />}
-					sx={{ flexDirection: 'column', '--Button-gap': 0 }}
-				>
-          Files
-				</Button>
+				{headerRouterConfiglist.map((item) => {
+					return (
+						<Button
+							key={item.key}
+							onClick={() => { handleTo(item.key) }}
+							aria-pressed={item.key === currentActive}
+							variant="plain"
+							color="neutral"
+							component="a"
+							size="sm"
+							startDecorator={<EmailRoundedIcon />}
+							sx={{ flexDirection: 'column', '--Button-gap': 0 }}
+						>
+							{item.name}
+						</Button>
+					)
+				})}
 			</Stack>
 			<RootWrap
 				sx={{

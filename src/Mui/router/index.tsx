@@ -3,7 +3,7 @@ import { createBrowserRouter } from 'react-router-dom'
 import Layout from '@/Mui/layout'
 import Files from '@/Mui/page/Files'
 import Chats from '@/Mui/page/Chats'
-import Config from '@/Mui/page/Config'
+import Setting from '@/Mui/page/Setting'
 const muiRouter = createBrowserRouter([
 	{
 		path: '/',
@@ -12,14 +12,20 @@ const muiRouter = createBrowserRouter([
 			{
 				path: '/chats',
 				element: <Chats/>,
+				children: [
+					{
+						path: ':id',
+						element: <Chats/>,
+					}
+				]
 			},
 			{
 				path: '/files',
 				element: <Files/>,
 			},
 			{
-				path: '/config',
-				element: <Config/>,
+				path: '/setting',
+				element: <Setting/>,
 			},
 		],
 	},

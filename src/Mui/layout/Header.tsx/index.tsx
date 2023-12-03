@@ -1,5 +1,5 @@
-import * as React from 'react'
-import { useColorScheme } from '@mui/joy/styles'
+import { useEffect, useState } from 'react'
+
 import Box from '@mui/joy/Box'
 import Typography from '@mui/joy/Typography'
 import IconButton from '@mui/joy/IconButton'
@@ -18,8 +18,7 @@ import ModalClose from '@mui/joy/ModalClose'
 import DialogTitle from '@mui/joy/DialogTitle'
 
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
-import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded'
-import LightModeRoundedIcon from '@mui/icons-material/LightModeRounded'
+
 import BookRoundedIcon from '@mui/icons-material/BookRounded'
 import LanguageRoundedIcon from '@mui/icons-material/LanguageRounded'
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded'
@@ -29,41 +28,25 @@ import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded'
 
 import TeamNav from '../Navigation'
+import ColorSchemeToggle from '@/Mui/components/ColorSchemeToggle'
+import { ConfigEnum, getHeaderRouterConfig } from '@/Mui/common/configs/headerRouterConfig'
+import { useNavigate, useLocation } from 'react-router-dom'
 
-function ColorSchemeToggle() {
-	const { mode, setMode } = useColorScheme()
-	const [mounted, setMounted] = React.useState(false)
-	React.useEffect(() => {
-		setMounted(true)
-	}, [])
-	if (!mounted) {
-		return <IconButton size="sm" variant="outlined" color="primary" />
-	}
-	return (
-		<Tooltip title="Change theme" variant="outlined">
-			<IconButton
-				id="toggle-mode"
-				size="sm"
-				variant="plain"
-				color="neutral"
-				sx={{ alignSelf: 'center' }}
-				onClick={() => {
-					if (mode === 'light') {
-						setMode('dark')
-					} else {
-						setMode('light')
-					}
-				}}
-			>
-				{mode === 'light' ? <DarkModeRoundedIcon /> : <LightModeRoundedIcon />}
-			</IconButton>
-		</Tooltip>
-	)
-}
+const headerRouterConfiglist = getHeaderRouterConfig()
 
 export default function Header() {
-	// const [currentActive, setActive] = React.useState(false)
-	const [open, setOpen] = React.useState(false)
+	const navigate = useNavigate()
+	const location = useLocation()
+	const [currentActive, setActive] = useState<ConfigEnum>('chats')
+	const [open, setOpen] = useState(false)
+	const handleTo = (key: ConfigEnum) => {
+		navigate(key)
+	}
+	useEffect(()=>{
+		const pathnameList = location.pathname.split('/')
+		const targetActive = pathnameList[1] as ConfigEnum
+		targetActive !== currentActive &&  setActive(targetActive)
+	},[location.pathname])
 	return (
 		<Box
 			sx={{
@@ -90,37 +73,22 @@ export default function Header() {
 				>
 					<LanguageRoundedIcon />
 				</IconButton>
-				<Button
-					variant="plain"
-					color="neutral"
-					component="a"
-					href="/chats"
-					size="sm"
-					sx={{ alignSelf: 'center' }}
-				>
-          Chats
-				</Button>
-				<Button
-					variant="plain"
-					color="neutral"
-					aria-pressed="true"
-					component="a"
-					href="/config"
-					size="sm"
-					sx={{ alignSelf: 'center' }}
-				>
-          Config
-				</Button>
-				<Button
-					variant="plain"
-					color="neutral"
-					component="a"
-					href="files"
-					size="sm"
-					sx={{ alignSelf: 'center' }}
-				>
-          Files
-				</Button>
+				{headerRouterConfiglist.map((item) => {
+					return (
+						<Button
+							key={item.key}
+							onClick={() => { handleTo(item.key) }}
+							aria-pressed={item.key === currentActive}
+							variant="plain"
+							color="neutral"
+							component="a"
+							size="sm"
+							sx={{ alignSelf: 'center' }}
+						>
+							{item.name}
+						</Button>
+					)
+				})}
 			</Stack>
 			<Box sx={{ display: { xs: 'inline-flex', sm: 'none' } }}>
 				<IconButton variant="plain" color="neutral" onClick={() => setOpen(true)}>
@@ -159,7 +127,7 @@ export default function Header() {
 							sx={{ bgcolor: 'background.level1' }}
 						>
 							<Typography level="title-sm" textColor="text.icon">
-                ⌘ K
+								⌘ K
 							</Typography>
 						</IconButton>
 					}
@@ -222,16 +190,16 @@ export default function Header() {
 								}}
 							>
 								<Avatar
-									src="https://i.pravatar.cc/40?img=2"
-									srcSet="https://i.pravatar.cc/80?img=2"
+									src="/images/user.png"
+									srcSet="/images/user.png"
 									sx={{ borderRadius: '50%' }}
 								/>
 								<Box sx={{ ml: 1.5 }}>
 									<Typography level="title-sm" textColor="text.primary">
-                    Rick Sanchez
+										Rick Sanchez
 									</Typography>
 									<Typography level="body-xs" textColor="text.tertiary">
-                    rick@email.com
+										rick@email.com
 									</Typography>
 								</Box>
 							</Box>
@@ -239,28 +207,28 @@ export default function Header() {
 						<ListDivider />
 						<MenuItem>
 							<HelpRoundedIcon />
-              Help
+							Help
 						</MenuItem>
 						<MenuItem>
 							<SettingsRoundedIcon />
-              Settings
+							Settings
 						</MenuItem>
 						<ListDivider />
 						<MenuItem component="a" href="/blog/first-look-at-joy/">
-              First look at Joy UI
+							First look at Joy UI
 							<OpenInNewRoundedIcon />
 						</MenuItem>
 						<MenuItem
 							component="a"
 							href="https://github.com/mui/material-ui/tree/master/docs/data/joy/getting-started/templates/email"
 						>
-              Sourcecode
+							Sourcecode
 							<OpenInNewRoundedIcon />
 						</MenuItem>
 						<ListDivider />
 						<MenuItem>
 							<LogoutRoundedIcon />
-              Log out
+							Log out
 						</MenuItem>
 					</Menu>
 				</Dropdown>
