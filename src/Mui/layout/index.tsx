@@ -12,10 +12,11 @@ import HeaderWrap from './HeaderWrap'
 import NavigationWrap from './NavigationWrap'
 import { ConfigEnum, getHeaderRouterConfig } from '@/Mui/common/configs/headerRouterConfig'
 import { useNavigate, useLocation } from 'react-router-dom'
+import SideDrawer from './SideDrawer'
 
 const headerRouterConfiglist = getHeaderRouterConfig()
 export default function TeamExample() {
-	const [drawerOpen] = useState(false)
+	const [drawerOpen, setDrawerOpen] = useState(false)
 
 	const navigate = useNavigate()
 	const location = useLocation()
@@ -32,6 +33,11 @@ export default function TeamExample() {
 
 	return (
 		<div>
+			{drawerOpen && (
+				<SideDrawer onClose={() => setDrawerOpen(false)}>
+					<Navigation />
+				</SideDrawer>
+			)}
 			<Stack
 				id="tab-bar"
 				direction="row"
