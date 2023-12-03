@@ -12,13 +12,26 @@ import ListItemContent from '@mui/joy/ListItemContent'
 // import AccountTreeRoundedIcon from '@mui/icons-material/AccountTreeRounded'
 // import TodayRoundedIcon from '@mui/icons-material/TodayRounded'
 import { getNavigationConfigList, itemType } from '@/configs/NavigationConfig'
-import { useState } from 'react'
+import { useEffect, useMemo, useState } from 'react'
+import { ConfigEnum } from '@/configs/headerRouterConfig'
+import { useLocation } from 'react-router-dom'
 
 const list = getNavigationConfigList()
 
 export default function Navigation() {
+	const location = useLocation()
+	const [currentActive, setActive] = useState<itemType['name']>()
+	
+	const currentSiderList = useMemo(()=>{
+		const pathnameList = location.pathname.split('/')
+		const targetActive = pathnameList[1] as ConfigEnum
+		return list[targetActive]
+	},[location.pathname])
 
-	const [currentActive, setActive] = useState<itemType['name']>('My files')
+	useEffect(()=>{
+		currentSiderList[0]?.children[0]?.name && setActive(currentSiderList[0].children[0].name)
+	},[location.pathname, currentSiderList[0]?.children[0]?.name])
+	
 	const handleNav = (name: itemType['name']) => {
 		setActive(name)
 	}
@@ -28,7 +41,7 @@ export default function Navigation() {
 			sx={{ '--ListItem-radius': 'var(--joy-radius-sm)', '--List-gap': '4px' }}
 		>
 			{
-				list.map((item) => {
+				currentSiderList.map((item) => {
 					return (
 						<ListItem nested key={item.name}>
 							<ListSubheader sx={{ letterSpacing: '2px', fontWeight: '800' }}>

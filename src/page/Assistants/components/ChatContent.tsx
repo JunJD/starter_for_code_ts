@@ -62,7 +62,7 @@ const ChatContent: FC<ChatContentProps> = ({assistantInfo = {} as AssistantType}
 							{assistantInfo?.name}
 						</Typography>
 						<Typography level="body-xs" textColor="text.tertiary">
-              21 Oct 2022
+							{assistantInfo?.date}
 						</Typography>
 					</Box>
 				</Box>

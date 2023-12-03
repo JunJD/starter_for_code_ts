@@ -15,7 +15,7 @@ import { useNavigate, useLocation } from 'react-router-dom'
 import SideDrawer from '@/components/SideDrawer'
 
 const headerRouterConfiglist = getHeaderRouterConfig()
-export default function TeamExample() {
+export default function Layout() {
 	const [drawerOpen, setDrawerOpen] = useState(false)
 
 	const navigate = useNavigate()
