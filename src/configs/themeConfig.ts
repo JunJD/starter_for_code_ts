@@ -1,8 +1,9 @@
-import { PaletteMode } from '@/common/types/theme'
+import { PaletteMode, ColorScales } from '@/common/types/theme'
 
 
 type ThemeConfig = {
   mode: PaletteMode;
+  color: ColorScales
   // routingLoader: boolean;
   // navigationSize: number;
   // responsiveFontSizes: boolean;
@@ -14,6 +15,7 @@ type ThemeConfig = {
 const themeConfig: ThemeConfig = {
 	// ** Palette mode
 	mode: 'light' /* light | dark */,
+	color: 'sage' /* blue | ruby | 'sage' */,
 
 	// ** Routing Configs
 	// routingLoader: true /* true | false */,

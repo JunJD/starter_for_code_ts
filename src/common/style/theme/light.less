@@ -1,8 +1,6 @@
 // less-loader 打包时通过additionalData引入
+
 html[data-theme="light"]:root {
-  --ai-main-color: 58, 53, 65;
-  --ai-bgcolor: red;
-  --ai-primarycolor: #415fff;
 
   --ai-primary: #9e69fd;
   --ai-secondary: #9c9fa4;
@@ -11,19 +9,23 @@ html[data-theme="light"]:root {
   --ai-warning: #ffca64;
   --ai-info: #32baff;
 
-  --ai-text-primary: rgba(var(--ai-main-color), 0.97);
-  --ai-text-secondary: rgba(var(--ai-main-color), 0.68);
-  --ai-text-disabled: rgba(var(--ai-main-color), 0.38);
+  --ai-background-default: var(--color-light-1);
+  --ai-background-paper: var(--color-light-2);
+  --ai-background-ui: var(--color-light-3);
+  --ai-background-hover: var(--color-light-4);
+  --ai-background-active: var(--color-light-5);
 
-  --ai-background-paper: #fff;
-  --ai-background-default: #f4f5fa;
+  --ai-border-main: var(--color-light-6);
+  --ai-border-active: var(--color-light-7);
+  --ai-border-hover: var(--color-light-8);
 
-  --ai-action-active: rgba(var(--ai-main-color), 0.54);
-  --ai-action-hover: rgba(var(--ai-main-color), 0.04);
-  --ai-action-selected: rgba(var(--ai-main-color), 0.08);
-  --ai-action-disabled: rgba(var(--ai-main-color), 0.03);
-  --ai-action-disabledBackground: rgba(var(--ai-main-color), 0.18);
-  --ai-action-focus: rgba(var(--ai-main-color), 0.12);
+  --ai-action-main: var(--color-light-9);
+  --ai-action-hover: var(--color-light-10);
 
-  --ai-border-main: rgba(var(--ai-main-color), 0.12);
+  --ai-text-low: var(--color-light-11);
+  --ai-text-high: var(--color-light-12);
+
+  --ai-text-primary: var(--ai-text-high);
+  --ai-text-secondary: var(--ai-text-low);
+  --ai-text-disabled: rgba(var(--ai-text-high), 0.38);
 }

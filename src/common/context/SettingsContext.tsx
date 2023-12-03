@@ -1,10 +1,11 @@
 import { createContext, useState, ReactNode, useEffect } from 'react'
 import { debounce } from 'lodash'
-import { PaletteMode } from '@/common/types/theme'
+import { PaletteMode, ColorScales } from '@/common/types/theme'
 import themeConfig from '@/configs/themeConfig'
 
 export type Settings = {
 	mode: PaletteMode;
+	color: ColorScales
 	isThemeSys: boolean;
 	// navVisible: boolean; 
 };
@@ -16,6 +17,7 @@ export type SettingsContextValue = {
 
 const initialSettings: Settings = {
 	mode: (localStorage.getItem('theme') as PaletteMode) ?? themeConfig.mode,
+	color: (localStorage.getItem('color') as ColorScales) ?? themeConfig.color,
 	isThemeSys: true,
 	// navVisible: false,
 }
