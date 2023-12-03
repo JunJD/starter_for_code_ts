@@ -33,6 +33,7 @@ module.exports = {
 		'react'
 	],
 	'rules': {
+		// '@typescript-eslint/no-inferrable-types': 'off',
 		'indent': [
 			'error',
 			'tab'

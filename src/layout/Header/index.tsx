@@ -98,7 +98,7 @@ export default function Header() {
 					onClose={() => setOpen(false)}
 				>
 					<ModalClose />
-					<DialogTitle>Acme Co.</DialogTitle>
+					<DialogTitle>Ding AI</DialogTitle>
 					<Box sx={{ px: 1 }}>
 						<TeamNav />
 					</Box>
