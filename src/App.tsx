@@ -1,8 +1,6 @@
 import { RouterProvider } from 'react-router-dom'
-// import router from './router/index'
-// import Providers from '@/common/Providers/Providers'
-import muiRouter from './Mui/router'
-import Providers from './Mui/common/Providers'
+import muiRouter from '@/router'
+import Providers from '@/common/Providers'
 function App() {
 	return (
 		<Providers>

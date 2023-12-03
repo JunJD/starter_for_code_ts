@@ -7,7 +7,6 @@ import Stack from '@mui/joy/Stack'
 import Avatar from '@mui/joy/Avatar'
 import Input from '@mui/joy/Input'
 import Button from '@mui/joy/Button'
-import Tooltip from '@mui/joy/Tooltip'
 import Dropdown from '@mui/joy/Dropdown'
 import Menu from '@mui/joy/Menu'
 import MenuButton from '@mui/joy/MenuButton'
@@ -19,7 +18,6 @@ import DialogTitle from '@mui/joy/DialogTitle'
 
 import SearchRoundedIcon from '@mui/icons-material/SearchRounded'
 
-import BookRoundedIcon from '@mui/icons-material/BookRounded'
 import LanguageRoundedIcon from '@mui/icons-material/LanguageRounded'
 import SettingsRoundedIcon from '@mui/icons-material/SettingsRounded'
 import HelpRoundedIcon from '@mui/icons-material/HelpRounded'
@@ -28,8 +26,8 @@ import LogoutRoundedIcon from '@mui/icons-material/LogoutRounded'
 import MenuRoundedIcon from '@mui/icons-material/MenuRounded'
 
 import TeamNav from '../Navigation'
-import ColorSchemeToggle from '@/Mui/components/ColorSchemeToggle'
-import { ConfigEnum, getHeaderRouterConfig } from '@/Mui/common/configs/headerRouterConfig'
+import ColorSchemeToggle from '@/components/ColorSchemeToggle'
+import { ConfigEnum, getHeaderRouterConfig } from '@/configs/headerRouterConfig'
 import { useNavigate, useLocation } from 'react-router-dom'
 
 const headerRouterConfiglist = getHeaderRouterConfig()
@@ -147,18 +145,6 @@ export default function Header() {
 				>
 					<SearchRoundedIcon />
 				</IconButton>
-				<Tooltip title="Joy UI overview" variant="outlined">
-					<IconButton
-						size="sm"
-						variant="plain"
-						color="neutral"
-						component="a"
-						href="/blog/first-look-at-joy/"
-						sx={{ alignSelf: 'center' }}
-					>
-						<BookRoundedIcon />
-					</IconButton>
-				</Tooltip>
 				<ColorSchemeToggle />
 				<Dropdown>
 					<MenuButton
@@ -167,8 +153,8 @@ export default function Header() {
 						sx={{ maxWidth: '32px', maxHeight: '32px', borderRadius: '9999999px' }}
 					>
 						<Avatar
-							src="https://i.pravatar.cc/40?img=2"
-							srcSet="https://i.pravatar.cc/80?img=2"
+							src="/images/user.png"
+							srcSet="/images/user.png"
 							sx={{ maxWidth: '32px', maxHeight: '32px' }}
 						/>
 					</MenuButton>
