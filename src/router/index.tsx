@@ -2,7 +2,8 @@
 import { createBrowserRouter } from 'react-router-dom'
 import Layout from '@/layout'
 import Files from '@/page/Files'
-import Chats from '@/page/Chats'
+import Assistant from '@/page/Assistants'
+import Chat from '@/page/Chat'
 import Setting from '@/page/Setting'
 const muiRouter = createBrowserRouter([
 	{
@@ -11,11 +12,11 @@ const muiRouter = createBrowserRouter([
 		children: [
 			{
 				path: '/chats',
-				element: <Chats/>,
+				element: <Assistant/>,
 				children: [
 					{
 						path: ':id',
-						element: <Chats/>,
+						element: <Chat/>,
 					}
 				]
 			},
