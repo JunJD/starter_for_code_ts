@@ -5,7 +5,7 @@ type ThemeConfig = {
   mode: PaletteMode;
   color: ColorScales
   // routingLoader: boolean;
-  // navigationSize: number;
+//   navigationSize: number;
   // responsiveFontSizes: boolean;
   // disableRipple: boolean;
 };
@@ -21,7 +21,7 @@ const themeConfig: ThemeConfig = {
 	// routingLoader: true /* true | false */,
 
 	// ** Navigation (Menu) Configs
-	// navigationSize: 260 /* Number in PX(Pixels) */,
+	// navigationSize: 220 /* Number in PX(Pixels) */,
 
 	// ** Other Configs 响应式式字体
 	// responsiveFontSizes: true /* true | false */,
