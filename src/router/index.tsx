@@ -5,6 +5,7 @@ import Files from '@/page/Files'
 import Assistant from '@/page/Assistants'
 import Chat from '@/page/Chat'
 import Setting from '@/page/Setting'
+import FileDisplay from '@/page/SettingRecord'
 const muiRouter = createBrowserRouter([
 	{
 		path: '/',
@@ -27,6 +28,12 @@ const muiRouter = createBrowserRouter([
 			{
 				path: '/setting',
 				element: <Setting/>,
+				children: [
+					{
+						path: ':id',
+						element: <FileDisplay/>,
+					}
+				]
 			},
 		],
 	},

@@ -1,7 +1,10 @@
+import FileSummary from '../FileSummary'
+
 const Files = () => {
 	return (
-		<div>Files</div>
+		<>
+			<FileSummary/>
+		</>
 	)
 }
-
 export default Files
