@@ -22,9 +22,7 @@ import CardActions from '@mui/joy/CardActions'
 import CardOverflow from '@mui/joy/CardOverflow'
 
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded'
-import {ChevronRightRounded} from '@mui/icons-material'
-import EmailRoundedIcon from '@mui/icons-material/EmailRounded'
-import AccessTimeFilledRoundedIcon from '@mui/icons-material/AccessTimeFilledRounded'
+import {ChevronRightRounded, Extension, FilePresent} from '@mui/icons-material'
 import VideocamRoundedIcon from '@mui/icons-material/VideocamRounded'
 import InsertDriveFileRoundedIcon from '@mui/icons-material/InsertDriveFileRounded'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
@@ -118,7 +116,7 @@ export default function AssistansProfile() {
 			>
 				<Card>
 					<Box sx={{ mb: 1 }}>
-						<Typography level="title-md">助理信息</Typography>
+						<Typography level="title-md">AI助理信息</Typography>
 						<Typography level="body-sm">
               为您的助手配置基本信息.
 						</Typography>
@@ -165,8 +163,8 @@ export default function AssistansProfile() {
 								<FormControl
 									sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
 								>
-									<Input size="sm" placeholder="Assistant name" />
-									<Input size="sm" placeholder="Last name" sx={{ flexGrow: 1 }} />
+									<Input size="sm" placeholder="请给你的AI助理起个名称" />
+									<Input size="sm" placeholder="请填写AI助理的OpenAI Key" sx={{ flexGrow: 1 }} />
 								</FormControl>
 							</Stack>
 							<Stack direction="row" spacing={2}>
@@ -175,15 +173,32 @@ export default function AssistansProfile() {
 									<Input size="sm" defaultValue="Learn" />
 								</FormControl>
 								<FormControl sx={{ flexGrow: 1 }}>
-									<FormLabel>Email</FormLabel>
-									<Input
+									<FormLabel>Tool</FormLabel>
+									<Select
 										size="sm"
-										type="email"
-										startDecorator={<EmailRoundedIcon />}
-										placeholder="email"
-										defaultValue="siriwatk@test.com"
+										startDecorator={<Extension />}
+										defaultValue="retrieval"
 										sx={{ flexGrow: 1 }}
-									/>
+									>
+										<Option value="code_interpreter">
+                      代码解释器{' '}
+											<Typography textColor="text.tertiary" ml={0.5}>
+                        — code_interpreter
+											</Typography>
+										</Option>
+										<Option value="retrieval">
+                      知识文档检索{' '}
+											<Typography textColor="text.tertiary" ml={0.5}>
+                        — retrieval
+											</Typography>
+										</Option>
+										<Option value="function">
+                    自定义插件{' '}
+											<Typography textColor="text.tertiary" ml={0.5}>
+                      — function
+											</Typography>
+										</Option>
+									</Select>
 								</FormControl>
 							</Stack>
 							<div>
@@ -191,22 +206,24 @@ export default function AssistansProfile() {
 							</div>
 							<div>
 								<FormControl sx={{ display: { sm: 'contents' } }}>
-									<FormLabel>Timezone</FormLabel>
+									<FormLabel>Files</FormLabel>
 									<Select
+										multiple
 										size="sm"
-										startDecorator={<AccessTimeFilledRoundedIcon />}
-										defaultValue="1"
+										startDecorator={<FilePresent />}
+										defaultValue={['file1']}
+										sx={{ flexGrow: 1 }}
 									>
-										<Option value="1">
-                      Indochina Time (Bangkok){' '}
+										<Option value="file1">
+                      文件1{' '}
 											<Typography textColor="text.tertiary" ml={0.5}>
-                        — GMT+07:00
+                        — file1
 											</Typography>
 										</Option>
-										<Option value="2">
-                      Indochina Time (Ho Chi Minh City){' '}
+										<Option value="file2">
+                      文件2{' '}
 											<Typography textColor="text.tertiary" ml={0.5}>
-                        — GMT+07:00
+                        — file2
 											</Typography>
 										</Option>
 									</Select>
@@ -262,8 +279,8 @@ export default function AssistansProfile() {
 										gap: 2,
 									}}
 								>
-									<Input size="sm" placeholder="First name" />
-									<Input size="sm" placeholder="Last name" />
+									<Input size="sm" placeholder="Assistant Name" />
+									<Input size="sm" placeholder="OpenAI Key" />
 								</FormControl>
 							</Stack>
 						</Stack>
@@ -272,37 +289,55 @@ export default function AssistansProfile() {
 							<Input size="sm" defaultValue="UI Developer" />
 						</FormControl>
 						<FormControl sx={{ flexGrow: 1 }}>
-							<FormLabel>Email</FormLabel>
-							<Input
+							<FormLabel>Tool</FormLabel>
+							<Select
 								size="sm"
-								type="email"
-								startDecorator={<EmailRoundedIcon />}
-								placeholder="email"
-								defaultValue="siriwatk@test.com"
-								sx={{ flexGrow: 1 }}
-							/>
+								startDecorator={<Extension />}
+								defaultValue="retrieval"
+							>
+								<Option value="code_interpreter">
+                    代码解释器{' '}
+									<Typography textColor="text.tertiary" ml={0.5}>
+                      — code_interpreter
+									</Typography>
+								</Option>
+								<Option value="retrieval">
+                    知识文档检索{' '}
+									<Typography textColor="text.tertiary" ml={0.5}>
+                      — retrieval
+									</Typography>
+								</Option>
+								<Option value="function">
+                    自定义插件{' '}
+									<Typography textColor="text.tertiary" ml={0.5}>
+                      — function
+									</Typography>
+								</Option>
+							</Select>
 						</FormControl>
 						<div>
 							<CountrySelector />
 						</div>
 						<div>
 							<FormControl sx={{ display: { sm: 'contents' } }}>
-								<FormLabel>Timezone</FormLabel>
+								<FormLabel>Files</FormLabel>
 								<Select
+									multiple
 									size="sm"
-									startDecorator={<AccessTimeFilledRoundedIcon />}
-									defaultValue="1"
+									startDecorator={<FilePresent />}
+									defaultValue={['file1']}
+									sx={{ flexGrow: 1 }}
 								>
-									<Option value="1">
-                    Indochina Time (Bangkok){' '}
+									<Option value="file1">
+                      文件1{' '}
 										<Typography textColor="text.tertiary" ml={0.5}>
-                      — GMT+07:00
+                        — file1
 										</Typography>
 									</Option>
-									<Option value="2">
-                    Indochina Time (Ho Chi Minh City){' '}
+									<Option value="file2">
+                      文件2{' '}
 										<Typography textColor="text.tertiary" ml={0.5}>
-                      — GMT+07:00
+                        — file2
 										</Typography>
 									</Option>
 								</Select>
@@ -322,9 +357,9 @@ export default function AssistansProfile() {
 				</Card>
 				<Card>
 					<Box sx={{ mb: 1 }}>
-						<Typography level="title-md">Bio</Typography>
+						<Typography level="title-md">指令</Typography>
 						<Typography level="body-sm">
-              Write a short introduction to be displayed on your profile
+						助手使用的系统指令。最大长度为32768个字符。
 						</Typography>
 					</Box>
 					<Divider />
@@ -334,10 +369,10 @@ export default function AssistansProfile() {
 							size="sm"
 							minRows={4}
 							sx={{ mt: 1.5 }}
-							defaultValue="I'm a software developer based in Bangkok, Thailand. My goal is to solve UI problems with neat CSS without using too much JavaScript."
+							defaultValue="你是一名个人数学导师。当被问及问题时, 编写并运行Python代码来回答问题。"
 						/>
 						<FormHelperText sx={{ mt: 0.75, fontSize: 'xs' }}>
-              275 characters left
+				32729 characters left
 						</FormHelperText>
 					</Stack>
 					<CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider' }}>

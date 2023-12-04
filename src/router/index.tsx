@@ -7,6 +7,7 @@ import Chat from '@/page/Chat'
 import Setting from '@/page/Setting'
 import FileDisplay from '@/page/SettingRecord'
 import CreateAssistans from '@/page/CreateAssistans'
+
 const muiRouter = createBrowserRouter([
 	{
 		path: '/',
@@ -69,7 +70,10 @@ const muiRouter = createBrowserRouter([
 					},
 					{
 						path: 'create',
-						element: <CreateAssistans/>
+						element: <CreateAssistans/>,
+						loader: async() => {
+							return []
+						}
 					},
 					{
 						path: ':id',

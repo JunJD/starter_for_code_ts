@@ -3,10 +3,7 @@ import Select from '@mui/joy/Select'
 import Option from '@mui/joy/Option'
 import IconButton from '@mui/joy/IconButton'
 
-import FormatBoldRoundedIcon from '@mui/icons-material/FormatBoldRounded'
-import FormatItalicRoundedIcon from '@mui/icons-material/FormatItalicRounded'
-import StrikethroughSRoundedIcon from '@mui/icons-material/StrikethroughSRounded'
-import FormatListBulletedRoundedIcon from '@mui/icons-material/FormatListBulletedRounded'
+import { TravelExplore } from '@mui/icons-material'
 
 export default function EditorToolbar(props: BoxProps) {
 	const { sx, ...other } = props
@@ -19,22 +16,13 @@ export default function EditorToolbar(props: BoxProps) {
 			]}
 		>
 			<Select size="sm" defaultValue="1" sx={{ minWidth: 160 }}>
-				<Option value="1">Normal text</Option>
+				<Option value="1">对话式</Option>
 				<Option value="2" sx={{ fontFamily: 'code' }}>
-          Code text
+					生成式
 				</Option>
 			</Select>
-			<IconButton size="sm" variant="plain" color="neutral">
-				<FormatBoldRoundedIcon />
-			</IconButton>
-			<IconButton size="sm" variant="plain" color="neutral">
-				<FormatItalicRoundedIcon />
-			</IconButton>
-			<IconButton size="sm" variant="plain" color="neutral">
-				<StrikethroughSRoundedIcon />
-			</IconButton>
-			<IconButton size="sm" variant="plain" color="neutral">
-				<FormatListBulletedRoundedIcon />
+			<IconButton size="sm" variant="solid" color="success" sx={{ display: 'flex', gap: 1, px: 1 }}>
+				<TravelExplore /> 更多指令
 			</IconButton>
 		</Box>
 	)
