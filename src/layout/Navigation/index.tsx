@@ -36,7 +36,7 @@ export default function Navigation() {
 			sx={{ '--ListItem-radius': 'var(--joy-radius-sm)', '--List-gap': '4px' }}
 		>
 			{
-				currentSiderList.map((item) => {
+				Array.isArray(currentSiderList) && currentSiderList.length && currentSiderList.map((item) => {
 					return (
 						<ListItem nested key={item.name}>
 							<ListSubheader sx={{ letterSpacing: '2px', fontWeight: '800' }}>
