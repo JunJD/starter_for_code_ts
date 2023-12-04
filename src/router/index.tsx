@@ -1,20 +1,31 @@
 
-import { createBrowserRouter } from 'react-router-dom'
+import { Navigate, createBrowserRouter } from 'react-router-dom'
 import Layout from '@/layout'
 import Files from '@/page/Files'
 import Assistant from '@/page/Assistants'
 import Chat from '@/page/Chat'
 import Setting from '@/page/Setting'
 import FileDisplay from '@/page/SettingRecord'
-// import CreateAssistans from '@/page/CreateAssistans'
+import CreateAssistans from '@/page/CreateAssistans'
 const muiRouter = createBrowserRouter([
 	{
 		path: '/',
 		element: <Layout/>,
 		children: [
 			{
+				path: '/',
+				element: <Navigate to="/chats" replace />,
+			},
+			{
 				path: '/chats',
 				element: <Assistant/>,
+				loader: async() => {
+					return new Promise((resolve)=>{
+						setTimeout(()=>{
+							resolve([1])
+						},20)
+					})
+				},
 				children: [
 					{
 						path: ':id',
@@ -25,15 +36,34 @@ const muiRouter = createBrowserRouter([
 			{
 				path: '/files',
 				element: <Files/>,
+				loader: async() => {
+					return new Promise((resolve)=>{
+						setTimeout(()=>{
+							resolve([2])
+						},20)
+					})
+				},
 			},
 			{
 				path: '/setting',
 				element: <Setting/>,
+				loader: async(context) => {
+
+					return new Promise((resolve)=>{
+						setTimeout(()=>{
+							resolve(context)
+						},20)
+					})
+				},
 				children: [
-					// {
-					// 	path: 'create',
-					// 	element: <CreateAssistans/>
-					// },
+					{
+						path: '/setting',
+						element: <Navigate to="/setting/666" replace />,
+					},
+					{
+						path: 'create',
+						element: <CreateAssistans/>
+					},
 					{
 						path: ':id',
 						element: <FileDisplay/>,

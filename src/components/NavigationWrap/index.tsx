@@ -18,6 +18,7 @@ function NavigationWrap(props: BoxProps) {
 						xs: 'none',
 						sm: 'initial',
 					},
+					transform: 'all .3s'
 				},
 				...(Array.isArray(props.sx) ? props.sx : [props.sx]),
 			]}

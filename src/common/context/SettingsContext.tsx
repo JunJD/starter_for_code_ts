@@ -6,12 +6,15 @@ import { breakpointsKeys } from '@/common/types/breakpoints'
 
 type gridTemplateConfigType = Partial<Record<breakpointsKeys, string>> | string
 
+const UNSTAN_HEADER = 64
+
 export type Settings = {
 	mode: PaletteMode;
 	color: ColorScales
 	isThemeSys: boolean;
 	gridTemplateColumnsConfig: gridTemplateConfigType;
 	gridTemplateRowsConfig: gridTemplateConfigType;
+	headerHeight: number
 	// navVisible: boolean; 
 };
 
@@ -29,7 +32,8 @@ const initialSettings: Settings = {
 		sm: 'minmax(64px, 200px) minmax(450px, 1fr)',
 		md: 'minmax(160px, 300px) minmax(300px, 500px) minmax(500px, 1fr)',
 	},
-	gridTemplateRowsConfig: '64px 1fr'
+	headerHeight: UNSTAN_HEADER,
+	gridTemplateRowsConfig: `${UNSTAN_HEADER}px 1fr`
 	// navVisible: false,
 }
 

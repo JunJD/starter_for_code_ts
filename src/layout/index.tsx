@@ -4,7 +4,7 @@ import Stack from '@mui/joy/Stack'
 import EmailRoundedIcon from '@mui/icons-material/EmailRounded'
 
 
-import { Outlet } from 'react-router-dom'
+import { Outlet, useLoaderData } from 'react-router-dom'
 import Header from './Header'
 import Navigation from './Navigation'
 import RootWrap from '@/components/RootWrap'
@@ -17,6 +17,9 @@ import SideDrawer from '@/components/SideDrawer'
 const headerRouterConfiglist = getHeaderRouterConfig()
 export default function Layout() {
 	const [drawerOpen, setDrawerOpen] = useState(false)
+
+
+	const albums = useLoaderData()
 
 	const navigate = useNavigate()
 	const location = useLocation()
@@ -31,6 +34,10 @@ export default function Layout() {
 		targetActive !== currentActive &&  setActive(targetActive)
 	},[location.pathname])
 
+	useEffect(()=>{
+		console.log(albums)
+	},[albums])
+	
 	return (
 		<div>
 			{drawerOpen && (

@@ -32,8 +32,14 @@ import EditorToolbar from '../EditorToolbar'
 import DropZone from '../DropZone'
 import FileUpload from '../FileUpload'
 import CountrySelector from '../CountrySelector'
+import { useNavigate } from 'react-router-dom'
 
 export default function AssistansProfile() {
+	const navigate = useNavigate()
+	const GoBack = ()=> {
+		navigate(-1)
+	}
+	
 	return (
 		<Box sx={{ flex: 1, width: '100%' }}>
 			<Box
@@ -54,26 +60,17 @@ export default function AssistansProfile() {
 						<Link
 							underline="none"
 							color="neutral"
-							href="#some-link"
+							onClick={GoBack}
 							aria-label="Home"
 						>
 							<HomeRoundedIcon />
 						</Link>
-						<Link
-							underline="hover"
-							color="neutral"
-							href="#some-link"
-							fontSize={12}
-							fontWeight={500}
-						>
-              Users
-						</Link>
 						<Typography color="primary" fontWeight={500} fontSize={12}>
-              My profile
+            Create assistant
 						</Typography>
 					</Breadcrumbs>
 					<Typography level="h2" component="h1" sx={{ mt: 1, mb: 2 }}>
-            My profile
+			Assistant profile
 					</Typography>
 				</Box>
 				<Tabs
@@ -106,15 +103,6 @@ export default function AssistansProfile() {
 						<Tab sx={{ borderRadius: '6px 6px 0 0' }} indicatorInset value={0}>
               Settings
 						</Tab>
-						<Tab sx={{ borderRadius: '6px 6px 0 0' }} indicatorInset value={1}>
-              Team
-						</Tab>
-						<Tab sx={{ borderRadius: '6px 6px 0 0' }} indicatorInset value={2}>
-              Plan
-						</Tab>
-						<Tab sx={{ borderRadius: '6px 6px 0 0' }} indicatorInset value={3}>
-              Billing
-						</Tab>
 					</TabList>
 				</Tabs>
 			</Box>
@@ -130,9 +118,9 @@ export default function AssistansProfile() {
 			>
 				<Card>
 					<Box sx={{ mb: 1 }}>
-						<Typography level="title-md">Personal info</Typography>
+						<Typography level="title-md">助理信息</Typography>
 						<Typography level="body-sm">
-              Customize how your profile information will apper to the networks.
+              为您的助手配置基本信息.
 						</Typography>
 					</Box>
 					<Divider />
@@ -174,18 +162,18 @@ export default function AssistansProfile() {
 						</Stack>
 						<Stack spacing={2} sx={{ flexGrow: 1 }}>
 							<Stack spacing={1}>
-								<FormLabel>Name</FormLabel>
+								<FormLabel>助手名称</FormLabel>
 								<FormControl
 									sx={{ display: { sm: 'flex-column', md: 'flex-row' }, gap: 2 }}
 								>
-									<Input size="sm" placeholder="First name" />
+									<Input size="sm" placeholder="Assistant name" />
 									<Input size="sm" placeholder="Last name" sx={{ flexGrow: 1 }} />
 								</FormControl>
 							</Stack>
 							<Stack direction="row" spacing={2}>
 								<FormControl>
-									<FormLabel>Role</FormLabel>
-									<Input size="sm" defaultValue="UI Developer" />
+									<FormLabel>Tag</FormLabel>
+									<Input size="sm" defaultValue="Learn" />
 								</FormControl>
 								<FormControl sx={{ flexGrow: 1 }}>
 									<FormLabel>Email</FormLabel>
