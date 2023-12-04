@@ -24,7 +24,7 @@ export default function Navigation() {
 	},[location.pathname])
 
 	useEffect(()=>{
-		currentSiderList[0]?.children[0]?.name && setActive(currentSiderList[0].children[0].name)
+		currentSiderList[0] && currentSiderList[0]?.children && currentSiderList[0]?.children[0]?.name && setActive(currentSiderList[0].children[0].name)
 	},[location.pathname, currentSiderList[0]?.children[0]?.name])
 	
 	const handleNav = (name: itemType['name']) => {
