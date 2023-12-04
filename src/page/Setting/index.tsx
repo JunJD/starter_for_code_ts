@@ -1,15 +1,8 @@
 
-import { Outlet, useLoaderData } from 'react-router-dom'
-import { useEffect } from 'react'
-
+import { Outlet } from 'react-router-dom'
 
 
 const Setting = () => {
-
-	const albums = useLoaderData()
-	useEffect(()=>{
-		console.log(albums)
-	},[albums])
 	return (
 		<>
 			<Outlet />

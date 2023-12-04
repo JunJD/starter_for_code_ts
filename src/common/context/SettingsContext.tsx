@@ -7,7 +7,11 @@ import { breakpointsKeys } from '@/common/types/breakpoints'
 type gridTemplateConfigType = Partial<Record<breakpointsKeys, string>> | string
 
 const UNSTAN_HEADER = 64
-
+export const DEFAULT_GRID_COLUMNS_CONFIG =	{
+	xs: '1fr',
+	sm: 'minmax(64px, 200px) minmax(450px, 1fr)',
+	md: 'minmax(160px, 300px) minmax(300px, 500px) minmax(500px, 1fr)',
+}
 export type Settings = {
 	mode: PaletteMode;
 	color: ColorScales
@@ -27,11 +31,7 @@ const initialSettings: Settings = {
 	mode: (localStorage.getItem('theme') as PaletteMode) ?? themeConfig.mode,
 	color: (localStorage.getItem('color') as ColorScales) ?? themeConfig.color,
 	isThemeSys: true,
-	gridTemplateColumnsConfig: {
-		xs: '1fr',
-		sm: 'minmax(64px, 200px) minmax(450px, 1fr)',
-		md: 'minmax(160px, 300px) minmax(300px, 500px) minmax(500px, 1fr)',
-	},
+	gridTemplateColumnsConfig: DEFAULT_GRID_COLUMNS_CONFIG,
 	headerHeight: UNSTAN_HEADER,
 	gridTemplateRowsConfig: `${UNSTAN_HEADER}px 1fr`
 	// navVisible: false,

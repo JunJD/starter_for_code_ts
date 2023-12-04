@@ -1,5 +1,5 @@
 
-import { Navigate, createBrowserRouter } from 'react-router-dom'
+import { Navigate, createBrowserRouter, redirect } from 'react-router-dom'
 import Layout from '@/layout'
 import Files from '@/page/Files'
 import Assistant from '@/page/Assistants'
@@ -27,6 +27,13 @@ const muiRouter = createBrowserRouter([
 					})
 				},
 				children: [
+					{
+						path: '/chats',
+						loader: async(content) => {
+							console.log(content)
+							return redirect('/chats/sgahuivh')
+						},
+					},
 					{
 						path: ':id',
 						element: <Chat/>,

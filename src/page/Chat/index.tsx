@@ -1,7 +1,9 @@
+import { DEFAULT_GRID_COLUMNS_CONFIG } from '@/common/context/SettingsContext'
+import { useSettings } from '@/common/hooks/useSettings'
 import { AssistantType } from '@/common/types/assistant'
 import { getAssistantById } from '@/mock'
 import ChatContent from '@/page/Assistants/components/ChatContent'
-import { useMemo } from 'react'
+import { useLayoutEffect, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 
 const Chat = () => {
@@ -10,6 +12,15 @@ const Chat = () => {
 		if(!params.id) return null
 		return getAssistantById(params.id!)
 	}, [params])
+	
+	const {settings, saveSettings} = useSettings()
+	
+	useLayoutEffect(()=>{
+		saveSettings({
+			...settings,
+			gridTemplateColumnsConfig: DEFAULT_GRID_COLUMNS_CONFIG
+		})
+	},[])
 	
 	return (
 		<ChatContent assistantInfo={assistantInfo} />

@@ -6,7 +6,6 @@ import { useLayoutEffect } from 'react'
 const CreateAssistans = () => {
 	const { settings, saveSettings } = useSettings()
 	useLayoutEffect(()=>{
-		const oldgridTemplateColumnsConfig = settings.gridTemplateColumnsConfig
 		saveSettings({
 			...settings,
 			gridTemplateColumnsConfig: {
@@ -15,12 +14,6 @@ const CreateAssistans = () => {
 				md: 'minmax(160px, 300px) minmax(500px, 1fr)', 
 			}
 		})
-		return () => {
-			saveSettings({
-				...settings,
-				gridTemplateColumnsConfig: oldgridTemplateColumnsConfig
-			})
-		}
 	},[])
 	return (
 		<Box
