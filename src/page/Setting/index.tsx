@@ -1,7 +1,7 @@
 import SidePane from '@/components/SidePane'
 import { Accordion, AccordionDetails, AccordionGroup, AccordionSummary, Autocomplete, Box, Button, Chip, ChipDelete, Radio, RadioGroup, Slider, Typography, accordionDetailsClasses, accordionSummaryClasses } from '@mui/joy'
 
-import DarkModeRoundedIcon from '@mui/icons-material/DarkModeRounded'
+import { AddCircle } from '@mui/icons-material'
 import { Outlet } from 'react-router-dom'
 
 
@@ -19,10 +19,10 @@ const Setting = () => {
 					}}
 				>
 					<Typography level="title-lg" textColor="text.secondary">
-              助理
+						助理
 					</Typography>
-					<Button startDecorator={<DarkModeRoundedIcon />} size="sm">
-              增加新的
+					<Button startDecorator={<AddCircle />} size="sm">
+						增加新的
 					</Button>
 				</Box>
 				<Box
@@ -35,7 +35,7 @@ const Setting = () => {
 				>
 					<Typography level="title-md">筛选</Typography>
 					<Button size="sm" variant="plain">
-              清理搜索项
+						清理搜索项
 					</Button>
 				</Box>
 				<AccordionGroup
@@ -92,7 +92,7 @@ const Setting = () => {
 										size="sm"
 										endDecorator={<ChipDelete variant="soft" />}
 									>
-                      UI designer
+										UI designer
 									</Chip>
 								</Box>
 							</Box>
@@ -197,7 +197,7 @@ const Setting = () => {
 					</Accordion>
 				</AccordionGroup>
 			</SidePane>
-			<Outlet/>
+			<Outlet />
 		</>
 	)
 }

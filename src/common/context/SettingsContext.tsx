@@ -2,11 +2,16 @@ import { createContext, useState, ReactNode, useEffect } from 'react'
 import { debounce } from 'lodash'
 import { PaletteMode, ColorScales } from '@/common/types/theme'
 import themeConfig from '@/configs/themeConfig'
+import { breakpointsKeys } from '@/common/types/breakpoints'
+
+type gridTemplateConfigType = Partial<Record<breakpointsKeys, string>> | string
 
 export type Settings = {
 	mode: PaletteMode;
 	color: ColorScales
 	isThemeSys: boolean;
+	gridTemplateColumnsConfig: gridTemplateConfigType;
+	gridTemplateRowsConfig: gridTemplateConfigType;
 	// navVisible: boolean; 
 };
 
@@ -19,6 +24,12 @@ const initialSettings: Settings = {
 	mode: (localStorage.getItem('theme') as PaletteMode) ?? themeConfig.mode,
 	color: (localStorage.getItem('color') as ColorScales) ?? themeConfig.color,
 	isThemeSys: true,
+	gridTemplateColumnsConfig: {
+		xs: '1fr',
+		sm: 'minmax(64px, 200px) minmax(450px, 1fr)',
+		md: 'minmax(160px, 300px) minmax(300px, 500px) minmax(500px, 1fr)',
+	},
+	gridTemplateRowsConfig: '64px 1fr'
 	// navVisible: false,
 }
 
