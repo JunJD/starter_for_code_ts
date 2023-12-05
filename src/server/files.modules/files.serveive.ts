@@ -19,13 +19,15 @@ export const FilesCreate =  async (fromData: FormData) => {
 }
 
 export const FilesGet =  async () => {
-
+	// @ts-ignore
+	console.log(process.env, '666')
 	const response = await window.fetch('https://run.dingjunjie.com/v1/files', {
 		method: 'GET',
 		headers: {
 
 			'Content-Type': 'application/json;charset=UTF-8',
-			authorization: 'Bearer ' + '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',
+			// @ts-ignore
+			authorization: 'Bearer ' + process.env.CHAT_GPT_API,
 			'OpenAI-Beta': 'assistants=v1'
 		},
 
@@ -41,7 +43,9 @@ export const FilesDelete =  async (id: FileType['id']) => {
 		method: 'DELETE',
 		headers: {
 			'Content-Type': 'application/json;charset=UTF-8',
-			authorization: 'Bearer ' + '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',
+
+			// @ts-ignore
+			authorization: 'Bearer ' + process.env.CHAT_GPT_API,
 			'OpenAI-Beta': 'assistants=v1'
 		},
 

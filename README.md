@@ -106,10 +106,8 @@ npm run eject
 
 ### 引入tiptap做编辑输入框
 ```bash
-pnpm install @tiptap/react @tiptap/pm
+pnpm install @tiptap/react @tiptap/pm @tiptap/starter-kit
 ```
-未安装@tiptap/starter-kit，因为暂不使用
-
 
 
 
