@@ -5,6 +5,9 @@ import './index.less'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 
+const style = 'background-color: yellow; color: red; font-style: italic; border: 4px solid red; font-size: 2em; padding: 0 10px 0 0;border-radius: 6px;'
+console.log('%c DING AI PRO', style)
+
 const root = ReactDOM.createRoot(
   document.getElementById('root') as HTMLElement
 )

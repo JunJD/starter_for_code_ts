@@ -22,7 +22,6 @@ export default function FileUpload(
 	const { icon, fileName, fileSize, progress, sx, onClickDelete, ...other } = props
 	
 	const handleDelete = () => {
-		console.log('delete')
 		onClickDelete && onClickDelete()
 	}
 	

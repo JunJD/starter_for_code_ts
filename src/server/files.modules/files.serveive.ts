@@ -11,7 +11,6 @@ export const FilesCreate =  async (fromData: FormData) => {
 		body: fromData
 	})
 	const file = await response.json()
-	console.log(file)
 	if(file.error) {
 		throw new Error(file.error.message)
 	}
@@ -19,8 +18,6 @@ export const FilesCreate =  async (fromData: FormData) => {
 }
 
 export const FilesGet =  async () => {
-	// @ts-ignore
-	console.log(process.env, '666')
 	const response = await window.fetch('https://run.dingjunjie.com/v1/files', {
 		method: 'GET',
 		headers: {
