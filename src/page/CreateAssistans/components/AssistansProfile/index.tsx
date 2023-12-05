@@ -403,7 +403,7 @@ export default function AssistansProfile() {
 						/>
 						<FileUpload
 							icon={<HtmlOutlined />}
-							fileName="Dashboard prototype recording.html"
+							fileName="dash.html"
 							fileSize="16 MB"
 							progress={40}
 						/>
