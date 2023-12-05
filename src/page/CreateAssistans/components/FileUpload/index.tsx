@@ -13,12 +13,19 @@ import RemoveCircleOutlineRoundedIcon from '@mui/icons-material/RemoveCircleOutl
 export default function FileUpload(
 	props: CardProps & {
     icon?: React.ReactElement;
+	onClickDelete?: () => void;
     fileName: string;
     fileSize: string;
     progress: number;
   },
 ) {
-	const { icon, fileName, fileSize, progress, sx, ...other } = props
+	const { icon, fileName, fileSize, progress, sx, onClickDelete, ...other } = props
+	
+	const handleDelete = () => {
+		console.log('delete')
+		onClickDelete && onClickDelete()
+	}
+	
 	return (
 		<Card
 			variant="outlined"
@@ -80,7 +87,7 @@ export default function FileUpload(
 				</AspectRatio>
 			) : (
 				<IconButton variant="plain" color="danger" size="sm" sx={{ mt: -1, mr: -1 }}>
-					<RemoveCircleOutlineRoundedIcon />
+					<RemoveCircleOutlineRoundedIcon onClick={handleDelete} />
 				</IconButton>
 			)}
 		</Card>

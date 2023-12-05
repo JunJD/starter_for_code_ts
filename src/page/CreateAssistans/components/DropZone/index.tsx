@@ -7,14 +7,12 @@ import { CardContent } from '@mui/joy'
 import FileUploader from '@/components/FileUploader'
 import { ChangeEvent } from 'react'
 
-
-export default function DropZone(props: CardProps & { icon?: React.ReactElement }) {
-	const { icon, sx, ...other } = props
+export default function DropZone(props: CardProps & { icon?: React.ReactElement,  
+	onChange?: (e: ChangeEvent<HTMLInputElement>) => Promise<void> }) {
+	const { icon, sx, onChange, ...other } = props
 	
-	const CreateFileForAssistant = (e: ChangeEvent) => {
-		console.log(e)
-		const files = (e.target as HTMLInputElement).files
-		console.dir(files, 'files')
+	const FileUploaderChange = async (e: ChangeEvent<HTMLInputElement>) => {
+		onChange && await onChange(e)
 	}
 	
 	return (
@@ -51,7 +49,7 @@ export default function DropZone(props: CardProps & { icon?: React.ReactElement 
 							<div>{icon ?? <FileUploadRoundedIcon />}</div>
 						</AspectRatio>
 					}
-					onChange={CreateFileForAssistant}
+					onChange={FileUploaderChange}
 				/>
 			</CardContent>
 			
@@ -62,7 +60,7 @@ export default function DropZone(props: CardProps & { icon?: React.ReactElement 
 						Click to upload
 						</Link>
 					}
-					onChange={CreateFileForAssistant}
+					onChange={FileUploaderChange}
 				/>
 
         or drag and drop

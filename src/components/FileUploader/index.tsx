@@ -16,13 +16,13 @@ const VisuallyHiddenInput = styled('input')`
 
 interface FileUploaderProps {
 	displayTriat: ReactElement,
-	onChange?: (e: ChangeEvent) => void
+	onChange?: (e: ChangeEvent<HTMLInputElement>) => void
 }
 
 
 const FileUploader: FC<FileUploaderProps> = ({ displayTriat, onChange }) => {
 
-	const handleFile = (e:  ChangeEvent) => {
+	const handleUpload = (e:  ChangeEvent<HTMLInputElement>) => {
 		onChange && onChange(e)
 	}
 	
@@ -37,8 +37,8 @@ const FileUploader: FC<FileUploaderProps> = ({ displayTriat, onChange }) => {
 			cursor: 'pointer'
 		}
 		const newChidren = Array.isArray(children)
-			? [...children, <VisuallyHiddenInput key="002" type="file" onChange={handleFile} />]
-			: [children, <VisuallyHiddenInput key="002" type="file"  onChange={handleFile} />]
+			? [...children, <VisuallyHiddenInput key="002" type="file" onChange={handleUpload} />]
+			: [children, <VisuallyHiddenInput key="002" type="file"  onChange={handleUpload} />]
 		return cloneElement(displayTriat, reset, newChidren)
 	}, [])
 

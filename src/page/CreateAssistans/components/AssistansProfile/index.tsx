@@ -23,7 +23,6 @@ import CardOverflow from '@mui/joy/CardOverflow'
 
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded'
 import { ChevronRightRounded, Extension, FilePresent, HtmlOutlined } from '@mui/icons-material'
-import InsertDriveFileRoundedIcon from '@mui/icons-material/InsertDriveFileRounded'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import EditorToolbar from '../EditorToolbar'
 import DropZone from '../DropZone'
@@ -31,10 +30,69 @@ import FileUpload from '../FileUpload'
 import CountrySelector from '../CountrySelector'
 import { useNavigate } from 'react-router-dom'
 
+import * as service from '@/server/files.modules/files.serveive'
+import { ChangeEvent, ReactElement, useEffect, useState } from 'react'
+import { FileType } from '@/server/types'
+
+interface DisplayFileType extends FileType {
+	icon: ReactElement,
+	fileName: string,
+	fileSize: string,
+	progress: number
+}
+
 export default function AssistansProfile() {
+
 	const navigate = useNavigate()
 	const GoBack = () => {
 		navigate(-1)
+	}
+
+	const [fileList, setFileList] = useState<DisplayFileType[]>([])
+
+	useEffect(() => {
+		getFileList()
+	}, [])
+
+	const getFileList = async() => {
+		const initFileData = await service.FilesGet()
+		const initFileList: DisplayFileType[] =  initFileData?.data?.map((filedata: FileType)=>{
+			return {
+				...filedata,
+				icon: <HtmlOutlined/>,
+				fileName: filedata.filename,
+				fileSize: (filedata.bytes / 1024 /1024) + 'mb',
+				progress: filedata.status === 'processed'? 50: 100
+			}
+		})
+		setFileList(initFileList)
+	}
+
+	const CreateFileForAssistant = async (e: ChangeEvent<HTMLInputElement>) => {
+		try {
+			const files = (e.target as HTMLInputElement).files
+
+			const fromData = new FormData()
+			fromData.append('file', files![0])
+			fromData.append('purpose', 'assistants')
+			const filedata: FileType = await service.FilesCreate(fromData)
+
+
+			setFileList((prev) => [...prev, { 
+				...filedata,
+				icon: <HtmlOutlined/>,
+				fileName: filedata.filename,
+				fileSize: (filedata.bytes / 1000000) + 'mb',
+				progress: filedata.status === 'processed'? 50: 100
+			}])
+		} catch (error) {
+			console.log(error)
+		}
+	}
+
+	const handleDeleteFile = async (id: FileType['id']) => {
+		await service.FilesDelete(id)
+		getFileList()
 	}
 
 	return (
@@ -394,19 +452,23 @@ export default function AssistansProfile() {
 					</Box>
 					<Divider />
 					<Stack spacing={2} sx={{ my: 1 }}>
-						<DropZone />
-						<FileUpload
-							icon={<InsertDriveFileRoundedIcon />}
-							fileName="Tech design requirements.zip"
-							fileSize="200 kB"
-							progress={100}
+						<DropZone
+							onChange={CreateFileForAssistant}
 						/>
-						<FileUpload
-							icon={<HtmlOutlined />}
-							fileName="dash.html"
-							fileSize="16 MB"
-							progress={40}
-						/>
+						{
+							Array.isArray(fileList) &&  fileList.map((file)=>{
+								return (
+									<FileUpload
+										key={file.id}
+										icon={file.icon}
+										fileName={file.fileName}
+										fileSize={file.fileSize}
+										progress={file.progress}
+										onClickDelete={()=>{handleDeleteFile(file.id)}}
+									/>
+								)
+							})
+						}
 					</Stack>
 					<CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider' }}>
 						<CardActions sx={{ alignSelf: 'flex-end', pt: 2 }}>
