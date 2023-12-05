@@ -42,7 +42,7 @@ export default function DropZone(props: CardProps & { icon?: React.ReactElement 
           Click to upload
 				</Link>{' '}
         or drag and drop
-				<br /> SVG, PNG, JPG or GIF (max. 800x400px)
+				<br /> 支持的文件类型: zip, tar, jpg, gif, png, jpg, html...
 			</Typography>
 		</Card>
 	)

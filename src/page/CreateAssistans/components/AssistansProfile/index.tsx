@@ -22,8 +22,7 @@ import CardActions from '@mui/joy/CardActions'
 import CardOverflow from '@mui/joy/CardOverflow'
 
 import HomeRoundedIcon from '@mui/icons-material/HomeRounded'
-import {ChevronRightRounded, Extension, FilePresent} from '@mui/icons-material'
-import VideocamRoundedIcon from '@mui/icons-material/VideocamRounded'
+import { ChevronRightRounded, Extension, FilePresent, HtmlOutlined } from '@mui/icons-material'
 import InsertDriveFileRoundedIcon from '@mui/icons-material/InsertDriveFileRounded'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import EditorToolbar from '../EditorToolbar'
@@ -34,10 +33,10 @@ import { useNavigate } from 'react-router-dom'
 
 export default function AssistansProfile() {
 	const navigate = useNavigate()
-	const GoBack = ()=> {
+	const GoBack = () => {
 		navigate(-1)
 	}
-	
+
 	return (
 		<Box sx={{ flex: 1, width: '100%' }}>
 			<Box
@@ -64,11 +63,11 @@ export default function AssistansProfile() {
 							<HomeRoundedIcon />
 						</Link>
 						<Typography color="primary" fontWeight={500} fontSize={12}>
-            Create assistant
+							Create assistant
 						</Typography>
 					</Breadcrumbs>
 					<Typography level="h2" component="h1" sx={{ mt: 1, mb: 2 }}>
-			Assistant profile
+						Assistant profile
 					</Typography>
 				</Box>
 				<Tabs
@@ -99,7 +98,7 @@ export default function AssistansProfile() {
 						}}
 					>
 						<Tab sx={{ borderRadius: '6px 6px 0 0' }} indicatorInset value={0}>
-              Settings
+							Settings
 						</Tab>
 					</TabList>
 				</Tabs>
@@ -118,7 +117,7 @@ export default function AssistansProfile() {
 					<Box sx={{ mb: 1 }}>
 						<Typography level="title-md">AI助理信息</Typography>
 						<Typography level="body-sm">
-              为您的助手配置基本信息.
+							为您的助手配置基本信息.
 						</Typography>
 					</Box>
 					<Divider />
@@ -181,21 +180,21 @@ export default function AssistansProfile() {
 										sx={{ flexGrow: 1 }}
 									>
 										<Option value="code_interpreter">
-                      代码解释器{' '}
+											代码解释器{' '}
 											<Typography textColor="text.tertiary" ml={0.5}>
-                        — code_interpreter
+												— code_interpreter
 											</Typography>
 										</Option>
 										<Option value="retrieval">
-                      知识文档检索{' '}
+											知识文档检索{' '}
 											<Typography textColor="text.tertiary" ml={0.5}>
-                        — retrieval
+												— retrieval
 											</Typography>
 										</Option>
 										<Option value="function">
-                    自定义插件{' '}
+											自定义插件{' '}
 											<Typography textColor="text.tertiary" ml={0.5}>
-                      — function
+												— function
 											</Typography>
 										</Option>
 									</Select>
@@ -215,15 +214,15 @@ export default function AssistansProfile() {
 										sx={{ flexGrow: 1 }}
 									>
 										<Option value="file1">
-                      文件1{' '}
+											文件1{' '}
 											<Typography textColor="text.tertiary" ml={0.5}>
-                        — file1
+												— file1
 											</Typography>
 										</Option>
 										<Option value="file2">
-                      文件2{' '}
+											文件2{' '}
 											<Typography textColor="text.tertiary" ml={0.5}>
-                        — file2
+												— file2
 											</Typography>
 										</Option>
 									</Select>
@@ -296,21 +295,21 @@ export default function AssistansProfile() {
 								defaultValue="retrieval"
 							>
 								<Option value="code_interpreter">
-                    代码解释器{' '}
+									代码解释器{' '}
 									<Typography textColor="text.tertiary" ml={0.5}>
-                      — code_interpreter
+										— code_interpreter
 									</Typography>
 								</Option>
 								<Option value="retrieval">
-                    知识文档检索{' '}
+									知识文档检索{' '}
 									<Typography textColor="text.tertiary" ml={0.5}>
-                      — retrieval
+										— retrieval
 									</Typography>
 								</Option>
 								<Option value="function">
-                    自定义插件{' '}
+									自定义插件{' '}
 									<Typography textColor="text.tertiary" ml={0.5}>
-                      — function
+										— function
 									</Typography>
 								</Option>
 							</Select>
@@ -329,15 +328,15 @@ export default function AssistansProfile() {
 									sx={{ flexGrow: 1 }}
 								>
 									<Option value="file1">
-                      文件1{' '}
+										文件1{' '}
 										<Typography textColor="text.tertiary" ml={0.5}>
-                        — file1
+											— file1
 										</Typography>
 									</Option>
 									<Option value="file2">
-                      文件2{' '}
+										文件2{' '}
 										<Typography textColor="text.tertiary" ml={0.5}>
-                        — file2
+											— file2
 										</Typography>
 									</Option>
 								</Select>
@@ -347,10 +346,10 @@ export default function AssistansProfile() {
 					<CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider' }}>
 						<CardActions sx={{ alignSelf: 'flex-end', pt: 2 }}>
 							<Button size="sm" variant="outlined" color="neutral">
-                Cancel
+								Cancel
 							</Button>
 							<Button size="sm" variant="solid">
-                Save
+								Save
 							</Button>
 						</CardActions>
 					</CardOverflow>
@@ -359,7 +358,7 @@ export default function AssistansProfile() {
 					<Box sx={{ mb: 1 }}>
 						<Typography level="title-md">指令</Typography>
 						<Typography level="body-sm">
-						助手使用的系统指令。最大长度为32768个字符。
+							助手使用的系统指令。最大长度为32768个字符。
 						</Typography>
 					</Box>
 					<Divider />
@@ -372,25 +371,25 @@ export default function AssistansProfile() {
 							defaultValue="你是一名个人数学导师。当被问及问题时, 编写并运行Python代码来回答问题。"
 						/>
 						<FormHelperText sx={{ mt: 0.75, fontSize: 'xs' }}>
-				32729 characters left
+							32729 characters left
 						</FormHelperText>
 					</Stack>
 					<CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider' }}>
 						<CardActions sx={{ alignSelf: 'flex-end', pt: 2 }}>
 							<Button size="sm" variant="outlined" color="neutral">
-                Cancel
+								Cancel
 							</Button>
 							<Button size="sm" variant="solid">
-                Save
+								Save
 							</Button>
 						</CardActions>
 					</CardOverflow>
 				</Card>
 				<Card>
 					<Box sx={{ mb: 1 }}>
-						<Typography level="title-md">Portfolio projects</Typography>
+						<Typography level="title-md">Files assistant</Typography>
 						<Typography level="body-sm">
-              Share a few snippets of your work.
+							上传一些文件以帮助助理学习更多的知识
 						</Typography>
 					</Box>
 					<Divider />
@@ -398,13 +397,13 @@ export default function AssistansProfile() {
 						<DropZone />
 						<FileUpload
 							icon={<InsertDriveFileRoundedIcon />}
-							fileName="Tech design requirements.pdf"
+							fileName="Tech design requirements.zip"
 							fileSize="200 kB"
 							progress={100}
 						/>
 						<FileUpload
-							icon={<VideocamRoundedIcon />}
-							fileName="Dashboard prototype recording.mp4"
+							icon={<HtmlOutlined />}
+							fileName="Dashboard prototype recording.html"
 							fileSize="16 MB"
 							progress={40}
 						/>
@@ -412,10 +411,10 @@ export default function AssistansProfile() {
 					<CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider' }}>
 						<CardActions sx={{ alignSelf: 'flex-end', pt: 2 }}>
 							<Button size="sm" variant="outlined" color="neutral">
-                Cancel
+								Cancel
 							</Button>
 							<Button size="sm" variant="solid">
-                Save
+								Save
 							</Button>
 						</CardActions>
 					</CardOverflow>

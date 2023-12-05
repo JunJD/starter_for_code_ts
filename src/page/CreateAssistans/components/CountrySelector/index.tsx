@@ -12,24 +12,24 @@ interface CountryType {
 	label: string;
 	ownedBy: string;
 	suggested?: boolean;
-  }
+}
 
 export default function ContrySelector(props: FormControlProps) {
 	const { sx, ...other } = props
 	const [listModel, setListModel] = useState<CountryType[]>([])
-	useEffect(()=>{
-		getModels().catch(()=>{
+	useEffect(() => {
+		getModels().catch(() => {
 			getModels()
 		})
-	},[])
-	const getModels = async()=> {
-		const {data: reslist} = await getModelList()
+	}, [])
+	const getModels = async () => {
+		const { data: reslist } = await getModelList()
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		setListModel(reslist.map((item: any)=>({
+		setListModel(reslist?.map((item: any) => ({
 			code: item.id,
 			label: item.id,
 			ownedBy: item.owned_by
-		})))
+		})) || [])
 	}
 
 	return (
@@ -48,7 +48,7 @@ export default function ContrySelector(props: FormControlProps) {
 					<AutocompleteOption {...optionProps}>
 						{option.label}
 						<Typography component="span" textColor="text.tertiary" ml={0.5}>
-              (by--{option.ownedBy})
+							(by--{option.ownedBy})
 						</Typography>
 					</AutocompleteOption>
 				)}

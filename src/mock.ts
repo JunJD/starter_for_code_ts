@@ -115,7 +115,7 @@ export const getAssistantById = (id: AssistantType['key']): AssistantType | null
 
 export const getModelList = async()=> {
 	const response = await fetch('https://run.dingjunjie.com/v1/models', {
-		method: 'GET',//asst_lNwBTn2HJxkxGEtgWui2nsvx
+		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
 			authorization: 'Bearer ' + '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',
