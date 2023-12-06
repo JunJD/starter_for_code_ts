@@ -4,7 +4,7 @@ import FormControl, { FormControlProps } from '@mui/joy/FormControl'
 import FormLabel from '@mui/joy/FormLabel'
 import Typography from '@mui/joy/Typography'
 import { useEffect, useState } from 'react'
-import { getModelList } from '@/mock'
+import { ModelListGet } from '@/server/model.modules/model.controller'
 
 
 interface CountryType {
@@ -14,7 +14,7 @@ interface CountryType {
 	suggested?: boolean;
 }
 
-export default function ContrySelector(props: FormControlProps) {
+export default function ModelSelector(props: FormControlProps) {
 	const { sx, ...other } = props
 	const [listModel, setListModel] = useState<CountryType[]>([])
 	useEffect(() => {
@@ -23,7 +23,7 @@ export default function ContrySelector(props: FormControlProps) {
 		})
 	}, [])
 	const getModels = async () => {
-		const { data: reslist } = await getModelList()
+		const { data: reslist } = await ModelListGet()
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		setListModel(reslist?.map((item: any) => ({
 			code: item.id,
@@ -39,10 +39,11 @@ export default function ContrySelector(props: FormControlProps) {
 		>
 			<FormLabel>Mode</FormLabel>
 			<Autocomplete
+				name='model'
 				size="sm"
 				autoHighlight
 				isOptionEqualToValue={(option, value) => option.code === value.code}
-				defaultValue={{ label: 'gpt-3.5-turbo-0613', code: 'gpt-3.5-turbo-0613', ownedBy: 'openai' }}
+				defaultValue={{ label: 'gpt-3.5-turbo-1106', code: 'gpt-3.5-turbo-1106', ownedBy: 'openai' }}
 				options={listModel}
 				renderOption={(optionProps, option) => (
 					<AutocompleteOption {...optionProps}>

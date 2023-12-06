@@ -112,16 +112,3 @@ export const getAssistantList = ():AssistantType[] => {
 export const getAssistantById = (id: AssistantType['key']): AssistantType | null => {
 	return data.find(item=>item.key===id) || null
 }
-
-export const getModelList = async()=> {
-	const response = await fetch('https://run.dingjunjie.com/v1/models', {
-		method: 'GET',
-		headers: {
-			'Content-Type': 'application/json',
-			authorization: 'Bearer ' + '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',
-			'OpenAI-Beta': 'assistants=v1'
-		},
-	})
-	const list = await response.json()
-	return list
-}

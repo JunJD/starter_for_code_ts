@@ -5,7 +5,7 @@ export const FilesCreate =  async (fromData: FormData) => {
 		method: 'POST',
 		headers: {
 			// 'Content-Type': 'multipart/form-data',
-			authorization: 'Bearer ' + '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',
+			authorization: 'Bearer ' + process.env.CHAT_GPT_API,
 			'OpenAI-Beta': 'assistants=v1'
 		},
 		body: fromData
