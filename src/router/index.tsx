@@ -5,7 +5,7 @@ import Files from '@/page/Files'
 import Assistant from '@/page/Assistants'
 import Chat from '@/page/Chat'
 import Setting from '@/page/Setting'
-import FileDisplay from '@/page/SettingRecord'
+import SettingRecord from '@/page/SettingRecord'
 import CreateAssistans from '@/page/CreateAssistans'
 
 const muiRouter = createBrowserRouter([
@@ -77,7 +77,7 @@ const muiRouter = createBrowserRouter([
 					},
 					{
 						path: ':id',
-						element: <FileDisplay/>,
+						element: <SettingRecord/>,
 					}
 				]
 			},

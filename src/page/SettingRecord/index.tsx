@@ -1,7 +1,7 @@
 // import { AssistantType } from '@/common/types/assistant'
 // import { getAssistantById } from '@/mock'
 
-import SettingContent from '@/page/Setting/components/SettingContent'
+import AssistransSettingContent from '@/page/Setting/components/AssistransSettingContent'
 import SettingFilter from '../Setting/components/settingFilter'
 import { useNavigate } from 'react-router-dom'
 
@@ -11,7 +11,7 @@ import { DEFAULT_GRID_COLUMNS_CONFIG } from '@/common/context/SettingsContext'
 // import { useMemo } from 'react'
 // import { useParams } from 'react-router-dom'
 
-const SettingDisplay = () => {
+const SettingRecord = () => {
 	// const params = useParams()
 	// const assistantInfo: AssistantType | null = useMemo(()=>{
 	// 	if(!params.id) return null
@@ -35,7 +35,8 @@ const SettingDisplay = () => {
 	return (
 		<>
 			<SettingFilter handleCreateAssitans={handleCreateAssitans}/>
-			<SettingContent/></>
+			<AssistransSettingContent/>
+		</>
 	)
 }
-export default SettingDisplay
+export default SettingRecord

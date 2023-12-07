@@ -1,19 +1,38 @@
 import PageMain from '@/components/PageMain'
-import { Avatar, Box, Button, Chip, Divider, List, ListItem, ListItemContent, ListItemDecorator, Sheet, Typography } from '@mui/joy'
-import {ExpandMoreTwoTone} from '@mui/icons-material'
+import { Avatar, Box, Button, Chip, Divider,  List, ListItem, ListItemContent, ListItemDecorator, Sheet, Typography } from '@mui/joy'
+import { DeleteRounded, EditRounded, ExpandMoreTwoTone } from '@mui/icons-material'
 import { useEffect, useState } from 'react'
 import { AsssistantListGet } from '@/server/assistant.modules/assistant.service'
-import { Asssistant } from '@/server/types'
+import { Assistant } from '@/server/types'
+import { AsssistantDelete } from '@/server/assistant.modules/assistant.controller'
+import DropdownRender, { DropdownRenderProps } from '@/components/DropdownRender'
+import { Operate } from '@/common/types/com'
 
-const FileContent = () => {
-	const [asssistantList, setAssistantList] = useState<Asssistant[]>([])
-	useEffect(()=>{
+const assistantsMenuRenderList: DropdownRenderProps['renderList'] = [
+	{
+		icon: <EditRounded/>,
+		label: '编辑',
+		command: 'edit'
+	},
+	{
+		icon: <DeleteRounded/>,
+		label: '删除',
+		color: 'danger',
+		command: 'delete'
+	}
+]
+
+
+const AssistransSettingContent = () => {
+	const [asssistantList, setAssistantList] = useState<Assistant[]>([])
+
+	useEffect(() => {
 		getAssistantList()
 	}, [])
 
-	const getAssistantList = async() => {
+	const getAssistantList = async () => {
 		const list = await AsssistantListGet()
-		setAssistantList(list.data.map(item=>({
+		setAssistantList(list.data.map(item => ({
 			...item,
 			companyData: [
 				{
@@ -27,9 +46,26 @@ const FileContent = () => {
 					years: '2023-12-07',
 				},
 			],
-		}))) 
+		})))
+	}
+
+	const handleCommand = (key: Operate, id: Assistant['id']) => {
+		if(key === 'delete') {
+			handleDeleteModel(id)
+		}
 	}
 	
+	const handleDeleteModel = async (id: Assistant['id']) => {
+		const result = await AsssistantDelete(id)
+		if (result.deleted) {
+			setAssistantList((prev: Assistant[]) => {
+				return prev.filter(it => it.id !== id)
+			})
+		} else {
+			alert('删除失败')
+		}
+	}
+
 	return (
 		<PageMain>
 			<List
@@ -55,10 +91,14 @@ const FileContent = () => {
 								variant="outlined"
 								sx={{ borderRadius: '50%' }}
 							/>
-							<div>
+							<Box sx={{ marginRight: 'auto' }} >
 								<Typography level="title-md">{person.name}</Typography>
 								<Typography level="body-xs">{person.instructions}</Typography>
-							</div>
+							</Box>
+							<DropdownRender
+								onCommond={(commnd)=>{ handleCommand(commnd, person.id) }}
+								renderList={assistantsMenuRenderList}
+							/>
 						</Box>
 						<Divider component="div" sx={{ my: 2 }} />
 						<List sx={{ '--ListItemDecorator-size': '40px', gap: 2 }}>
@@ -95,7 +135,7 @@ const FileContent = () => {
 							endDecorator={<ExpandMoreTwoTone fontSize="small" />}
 							sx={{ px: 1, mt: 1 }}
 						>
-                  Expand
+							Expand
 						</Button>
 						<Divider component="div" sx={{ my: 2 }} />
 						<Typography level="title-sm">Tool tags:</Typography>
@@ -115,8 +155,8 @@ const FileContent = () => {
 				))}
 			</List>
 		</PageMain>
-        
+
 	)
 }
 
-export default FileContent
+export default AssistransSettingContent

@@ -35,7 +35,7 @@ import { useNavigate } from 'react-router-dom'
 import { FilesGet, FilesCreate, FilesDelete } from '@/server/files.modules/files.controller'
 import { AsssistantCreate, AsssistantUpdate } from '@/server/assistant.modules/assistant.controller'
 
-import { FileType, GPTName, Tool } from '@/server/types'
+import { Assistant, FileType, GPTName, Tool } from '@/server/types'
 import { Theme } from '@mui/joy'
 import useMediaQuery from '@/common/hooks/useMediaQuery'
 
@@ -51,6 +51,7 @@ export default function AssistansProfile() {
 	const hidden = useMediaQuery((theme: Theme) => theme.breakpoints.down('xs'))
 	const navigate = useNavigate()
 	const [fileList, setFileList] = useState<DisplayFileType[]>([])
+	const [assistant, saveAssistant] = useState<Assistant>({} as Assistant )
 	const GoBack = () => {
 		navigate(-1)
 	}
@@ -100,23 +101,28 @@ export default function AssistansProfile() {
 		getFileList()
 	}
 
-	const handleSubmit: FormEventHandler<HTMLFormElement> = (e) => {
+	const handleSubmit: FormEventHandler<HTMLFormElement> = async (e) => {
 		e.stopPropagation()
 		e.preventDefault()
 
 		const formData = new FormData(e.currentTarget)
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const formJson = Object.fromEntries((formData).entries())
-		console.log(formJson, 'formJson')
-		AsssistantCreate({
+
+		const assistant = await AsssistantCreate({
 			name: formJson.name as string,
 			tools: [{ type: formJson.tool }] as Array< { type:Tool  } >,
 			model: formJson.model as GPTName,
 			description: formJson.description  as string,
 		})
+		saveAssistant(assistant)
 	}
 	
 	const handleUpdateInstructions: FormEventHandler<HTMLFormElement> = (e) => {
+		if(!assistant) {
+			alert('先创建一个助手')
+			return 
+		}
 		e.stopPropagation()
 		e.preventDefault()
 
@@ -125,6 +131,7 @@ export default function AssistansProfile() {
 		const formJson = Object.fromEntries((formData).entries())
 		console.log(formJson, 'formJson')
 		AsssistantUpdate({
+			id: assistant.id,
 			instructions: formJson.instructions  as string,
 		})
 	}

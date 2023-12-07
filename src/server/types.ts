@@ -4,6 +4,7 @@ export type GPTName = 'gpt-3.5-turbo' | 'gpt-4'
 type Purpose = 'assistants' | 'fine-tune'
 type FileObject = 'file'
 type Status = 'processed'
+
 export type Tool = 'code_interpreter' | 'retrieval' | 'function'
 export interface GPTMode {
     provider: string,
@@ -35,7 +36,8 @@ export interface CompanyData {
     years: string,
 }
 
-export interface Asssistant {
+export interface Assistant {
+    id: string,
     name: string,
     instructions: string,
     fileIds: Array<FileType['id']>
@@ -48,4 +50,9 @@ export interface Asssistant {
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type listResult<T = any> = {
     data: Array<T>
+}
+export type DeleteResult = {
+    id: string,
+    object: string,
+    deleted: boolean
 }

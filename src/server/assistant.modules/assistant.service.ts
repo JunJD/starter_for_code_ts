@@ -1,6 +1,6 @@
-import { Asssistant, listResult } from '../types'
+import { Assistant, DeleteResult, listResult } from '../types'
 
-export const AsssistantCreate =  async (params: Partial<Asssistant>) => {
+export const AsssistantCreate = async (params: Partial<Assistant>) => {
 	const response = await window.fetch('https://run.dingjunjie.com/v1/assistants', {
 		method: 'POST',
 		headers: {
@@ -18,14 +18,14 @@ export const AsssistantCreate =  async (params: Partial<Asssistant>) => {
 		})
 	})
 	const asssistant = await response.json()
-	if(asssistant.error) {
+	if (asssistant.error) {
 		throw new Error(asssistant.error.message)
 	}
 	return asssistant
 }
 
-export const AsssistantUpdate =  async (params: Partial<Asssistant>) => {
-	const response = await window.fetch('https://run.dingjunjie.com/v1/assistants/asst_4EngySoRYbSwKIyQbD6bYqUu', {
+export const AsssistantUpdate = async (params: Partial<Assistant>) => {
+	const response = await window.fetch('https://run.dingjunjie.com/v1/assistants/' + params.id, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json;charset=UTF-8',
@@ -34,12 +34,12 @@ export const AsssistantUpdate =  async (params: Partial<Asssistant>) => {
 		},
 		body: JSON.stringify(
 			{
-				...params
+				instructions: params.instructions
 			}
 		)
 	})
 	const asssistant = await response.json()
-	if(asssistant.error) {
+	if (asssistant.error) {
 		throw new Error(asssistant.error.message)
 	}
 	return asssistant
@@ -49,13 +49,13 @@ export const AsssistantUpdate =  async (params: Partial<Asssistant>) => {
 
 let fitstTimer: number = 0
 
-let list: listResult = {data: []}
+let list: listResult = { data: [] }
 
-export const AsssistantListGet = async(): Promise<listResult> => {
+export const AsssistantListGet = async (): Promise<listResult> => {
 
 	const currentTimer = Date.now()
 
-	if(fitstTimer && ((currentTimer - fitstTimer) < (1000 * 60)) && list.data.length) {
+	if (fitstTimer && ((currentTimer - fitstTimer) < (1000 * 60)) && list.data.length) {
 		fitstTimer = currentTimer
 		return list
 	}
@@ -66,11 +66,24 @@ export const AsssistantListGet = async(): Promise<listResult> => {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',
-			authorization: 'Bearer ' +  process.env.CHAT_GPT_API,
+			authorization: 'Bearer ' + process.env.CHAT_GPT_API,
 			'OpenAI-Beta': 'assistants=v1'
 		},
 	})
 	list = await response.json()
 
 	return list
+}
+
+
+export const AsssistantDelete = async (id: Assistant['id']): Promise<DeleteResult> => {
+	const response = await fetch('https://run.dingjunjie.com/v1/assistants/' + id, {
+		method: 'DELETE',
+		headers: {
+			'Content-Type': 'application/json',
+			authorization: 'Bearer ' + process.env.CHAT_GPT_API,
+			'OpenAI-Beta': 'assistants=v1'
+		},
+	})
+	return await response.json()
 }
