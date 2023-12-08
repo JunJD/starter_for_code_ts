@@ -8,6 +8,8 @@ import { useNavigate } from 'react-router-dom'
 import { useLayoutEffect } from 'react'
 import { useSettings } from '@/common/hooks/useSettings'
 import { DEFAULT_GRID_COLUMNS_CONFIG } from '@/common/context/SettingsContext'
+import ScrollWrap from '@/components/ScrollWrap'
+import { Box } from '@mui/joy'
 // import { useMemo } from 'react'
 // import { useParams } from 'react-router-dom'
 
@@ -33,8 +35,24 @@ const SettingRecord = () => {
 	}
 	
 	return (
+		
 		<>
-			<SettingFilter handleCreateAssitans={handleCreateAssitans}/>
+			<Box
+				sx={{
+					display: 'flex',
+					height: `calc(100dvh - ${settings?.headerHeight || 64}px)`,
+					overflow: 'auto',
+				}}
+			>
+				<ScrollWrap
+					sx={{
+						flex: 1
+					}}
+				>
+					<SettingFilter handleCreateAssitans={handleCreateAssitans}/>
+				</ScrollWrap>
+			</Box>
+
 			<AssistransSettingContent/>
 		</>
 	)

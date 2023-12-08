@@ -14,17 +14,11 @@ import Stack from '@mui/joy/Stack'
 import Select from '@mui/joy/Select'
 import Option from '@mui/joy/Option'
 import Typography from '@mui/joy/Typography'
-import Tabs from '@mui/joy/Tabs'
-import TabList from '@mui/joy/TabList'
-import Tab, { tabClasses } from '@mui/joy/Tab'
-import Breadcrumbs from '@mui/joy/Breadcrumbs'
-import Link from '@mui/joy/Link'
 import Card from '@mui/joy/Card'
 import CardActions from '@mui/joy/CardActions'
 import CardOverflow from '@mui/joy/CardOverflow'
 
-import HomeRoundedIcon from '@mui/icons-material/HomeRounded'
-import { ChevronRightRounded, Extension, HtmlOutlined } from '@mui/icons-material'
+import { Extension, HtmlOutlined } from '@mui/icons-material'
 import EditRoundedIcon from '@mui/icons-material/EditRounded'
 import EditorToolbar from '../EditorToolbar'
 import DropZone from '../DropZone'
@@ -145,61 +139,6 @@ export default function AssistansProfile() {
 					zIndex: 9995,
 				}}
 			>
-				<Box sx={{ px: { xs: 2, md: 6 } }}>
-					<Breadcrumbs
-						size="sm"
-						aria-label="breadcrumbs"
-						separator={<ChevronRightRounded fontSize='medium' />}
-						sx={{ pl: 0 }}
-					>
-						<Link
-							underline="none"
-							color="neutral"
-							onClick={GoBack}
-							aria-label="Home"
-						>
-							<HomeRoundedIcon />
-						</Link>
-						<Typography color="primary" fontWeight={500} fontSize={12}>
-							Create assistant
-						</Typography>
-					</Breadcrumbs>
-					<Typography level="h2" component="h1" sx={{ mt: 1, mb: 2 }}>
-						Assistant profile
-					</Typography>
-				</Box>
-				<Tabs
-					defaultValue={0}
-					sx={{
-						bgcolor: 'transparent',
-					}}
-				>
-					<TabList
-						tabFlex={1}
-						size="sm"
-						sx={{
-							pl: { xs: 0, md: 4 },
-							justifyContent: 'left',
-							[`&& .${tabClasses.root}`]: {
-								fontWeight: '600',
-								flex: 'initial',
-								color: 'text.tertiary',
-								[`&.${tabClasses.selected}`]: {
-									bgcolor: 'transparent',
-									color: 'text.primary',
-									'&::after': {
-										height: '2px',
-										bgcolor: 'primary.500',
-									},
-								},
-							},
-						}}
-					>
-						<Tab sx={{ borderRadius: '6px 6px 0 0' }} indicatorInset value={0}>
-							Settings
-						</Tab>
-					</TabList>
-				</Tabs>
 			</Box>
 			<Stack
 				spacing={4}
@@ -424,7 +363,7 @@ export default function AssistansProfile() {
 						</Stack>}
 						<CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider' }}>
 							<CardActions sx={{ alignSelf: 'flex-end', pt: 2 }}>
-								<Button size="sm" variant="outlined" color="neutral">
+								<Button size="sm" variant="outlined" color="neutral"  onClick={GoBack}>
 								Cancel
 								</Button>
 								<Button size="sm" variant="solid" type='submit'>
@@ -459,7 +398,7 @@ export default function AssistansProfile() {
 						</Stack>
 						<CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider' }}>
 							<CardActions sx={{ alignSelf: 'flex-end', pt: 2 }}>
-								<Button size="sm" variant="outlined" color="neutral">
+								<Button size="sm" variant="outlined" color="neutral"  onClick={GoBack}>
 								Cancel
 								</Button>
 								<Button size="sm" variant="solid" type='submit'>
@@ -499,7 +438,7 @@ export default function AssistansProfile() {
 					</Stack>
 					<CardOverflow sx={{ borderTop: '1px solid', borderColor: 'divider' }}>
 						<CardActions sx={{ alignSelf: 'flex-end', pt: 2 }}>
-							<Button size="sm" variant="outlined" color="neutral">
+							<Button size="sm" variant="outlined" color="neutral" onClick={GoBack}>
 								Cancel
 							</Button>
 							<Button size="sm" variant="solid">

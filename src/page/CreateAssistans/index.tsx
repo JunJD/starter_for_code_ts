@@ -3,6 +3,7 @@ import AssistansProfile from '@/page/CreateAssistans/components/AssistansProfile
 import { useSettings } from '@/common/hooks/useSettings'
 import { useEffect, useLayoutEffect } from 'react'
 import { useLoaderData } from 'react-router-dom'
+import ScrollWrap from '@/components/ScrollWrap'
 
 const CreateAssistans = () => {
 	const { settings, saveSettings } = useSettings()
@@ -25,8 +26,6 @@ const CreateAssistans = () => {
 			component="main"
 			className="MainContent"
 			sx={{
-				pt: { xs: `calc(12px + ${settings.headerHeight || 64}px)`, md: 3},
-				pb: { xs: 2, sm: 2, md: 3 },
 				flex: 1,
 				display: 'flex',
 				flexDirection: 'column',
@@ -36,9 +35,11 @@ const CreateAssistans = () => {
 				overflow: 'auto',
 			}}
 		>
-			<AssistansProfile />
+
+			<ScrollWrap>
+				<AssistansProfile />
+			</ScrollWrap>
 		</Box>
-    
 	)
 }
 
