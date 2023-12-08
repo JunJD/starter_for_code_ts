@@ -106,7 +106,6 @@ export default function AssistansProfile() {
 		e.preventDefault()
 
 		const formData = new FormData(e.currentTarget)
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const formJson = Object.fromEntries((formData).entries())
 
 		const assistant = await AsssistantCreate({

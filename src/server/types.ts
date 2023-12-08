@@ -1,11 +1,20 @@
 
 export type GPTName = 'gpt-3.5-turbo' | 'gpt-4'
 
+export type Role = 'user'
+
+export interface Metadata<T> {
+    [key: string]: T
+}
+
 type Purpose = 'assistants' | 'fine-tune'
 type FileObject = 'file'
 type Status = 'processed'
 
 export type Tool = 'code_interpreter' | 'retrieval' | 'function'
+
+export type ApiObjectType = 'thread'
+
 export interface GPTMode {
     provider: string,
     name: GPTName,
@@ -47,6 +56,21 @@ export interface Assistant {
     companyData: Array<CompanyData>,
     skills: Array<Tool>
 }
+
+export interface Message<T = string> {
+    role: Extract<Role, 'user'>,
+    content: string,
+    fileIds?: Array<string>,
+    metadata?: Metadata<T>
+
+}
+
+export interface Threads<T = string> {
+    id: string,
+    object: ApiObjectType,
+    metadata: Metadata<T>,
+    messages?: Array<Message>
+}
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 export type listResult<T = any> = {
     data: Array<T>
@@ -56,3 +80,9 @@ export type DeleteResult = {
     object: string,
     deleted: boolean
 }
+
+export type CreateResult = {
+    id:string,
+    object: ApiObjectType,
+    metadata: Metadata<string>
+  }

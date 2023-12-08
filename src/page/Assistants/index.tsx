@@ -12,6 +12,7 @@ import PageMain from '@/components/PageMain'
 
 import { Outlet } from 'react-router-dom'
 import WriteChats from '@/components/WriteChats'
+import { threadsCreate } from '@/server/threads.modules/threads.controller'
 
 const Assistants = () => {
 	const [open, setOpen] = useState(false)
@@ -19,9 +20,20 @@ const Assistants = () => {
 	useEffect(() => {
 		setAssistantList(getAssistantList())
 	}, [])
-	useEffect(() => {
-		console.log(open)
-	}, [open])
+
+	const onSend = async (form: {[k: string]: FormDataEntryValue}) => {
+		const thread =  await threadsCreate({
+			messages: [{
+				role: 'user',
+				content: form.userFirstMessage as string
+			}],
+			metadata: {
+				title: form.title as string
+			},
+		})
+		console.log('create thrend success==>',  thread)
+	}
+	
 	return (
 		<>
 			<SidePane>
@@ -50,7 +62,7 @@ const Assistants = () => {
 						Chat to the AI Assistant
 					</Button>
 					<FocusTrap open={open} disableAutoFocus disableEnforceFocus>
-						<WriteChats open={open} onClose={() => setOpen(false)} />
+						<WriteChats onSend={onSend}  open={open} onClose={() => setOpen(false)} />
 					</FocusTrap>
 				</Box>
 				<AssistantList data={assistantList} />
