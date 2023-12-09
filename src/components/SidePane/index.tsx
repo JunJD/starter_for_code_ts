@@ -3,7 +3,7 @@ import Box, { BoxProps } from '@mui/joy/Box'
 function SidePane(props: BoxProps) {
 	return (
 		<Box
-			className="Inbox"
+			className="SidePane"
 			{...props}
 			sx={[
 				{

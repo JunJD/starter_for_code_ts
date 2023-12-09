@@ -1,4 +1,3 @@
-import SidePane from '@/components/SidePane'
 import { Accordion, AccordionDetails, AccordionGroup, AccordionSummary, Autocomplete, Box, Button, Chip, ChipDelete, Radio, RadioGroup, Slider, Typography, accordionDetailsClasses, accordionSummaryClasses } from '@mui/joy'
 import { AddCircle } from '@mui/icons-material'
 import { FC } from 'react'
@@ -15,7 +14,7 @@ const SettingFilter: FC<SettingFilterProps> = (props) => {
 	}
 	
 	return (
-		<SidePane>
+		<>
 			<Box
 				sx={{
 					p: 2,
@@ -202,7 +201,7 @@ const SettingFilter: FC<SettingFilterProps> = (props) => {
 					</AccordionDetails>
 				</Accordion>
 			</AccordionGroup>
-		</SidePane>
+		</>
 	)
 }
 export default SettingFilter

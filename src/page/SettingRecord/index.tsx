@@ -9,17 +9,10 @@ import { useLayoutEffect } from 'react'
 import { useSettings } from '@/common/hooks/useSettings'
 import { DEFAULT_GRID_COLUMNS_CONFIG } from '@/common/context/SettingsContext'
 import ScrollWrap from '@/components/ScrollWrap'
-import { Box } from '@mui/joy'
-// import { useMemo } from 'react'
-// import { useParams } from 'react-router-dom'
+import SidePane from '@/components/SidePane'
+
 
 const SettingRecord = () => {
-	// const params = useParams()
-	// const assistantInfo: AssistantType | null = useMemo(()=>{
-	// 	if(!params.id) return null
-	// 	return getAssistantById(params.id!)
-	// }, [params])
-
 	const {settings, saveSettings} = useSettings()
 	
 	useLayoutEffect(()=>{
@@ -37,9 +30,9 @@ const SettingRecord = () => {
 	return (
 		
 		<>
-			<Box
+			<SidePane
 				sx={{
-					display: 'flex',
+					display: 'flex !important',
 					height: `calc(100dvh - ${settings?.headerHeight || 64}px)`,
 					overflow: 'auto',
 				}}
@@ -51,7 +44,7 @@ const SettingRecord = () => {
 				>
 					<SettingFilter handleCreateAssitans={handleCreateAssitans}/>
 				</ScrollWrap>
-			</Box>
+			</SidePane>
 
 			<AssistransSettingContent/>
 		</>
