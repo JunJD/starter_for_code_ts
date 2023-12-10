@@ -126,3 +126,12 @@ This section has moved here: [https://facebook.github.io/create-react-app/docs/d
 ### `npm run build` fails to minify
 
 This section has moved here: [https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify](https://facebook.github.io/create-react-app/docs/troubleshooting#npm-run-build-fails-to-minify)
+
+# 待办
+- [ ] 部分状态全局请求全局更新，比如助手列表，上下文对话列表(不同接口更新不同内容，比如删除和新增不在一个组件，比如编辑信息需要添加message，运行时添加状态)，
+- [ ] 重构一下服务端接口以及接口类型 dto 和 result
+- [ ] 删除助手时的loading动画
+- [ ] 删除助手时的撤销提示
+- [ ] 新增助手时的界面交互
+- [ ] 我的助手列表数据和上下文对话列表数据做区分
+- [ ] 上下文对话列表数据结构来源
