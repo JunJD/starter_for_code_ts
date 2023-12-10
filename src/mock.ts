@@ -107,7 +107,6 @@ const data: AssistantType[] = [
 
 export const getAssistantList = ():AssistantType[] => {
 	return data
-
 }
 export const getAssistantById = (id: AssistantType['key']): AssistantType | null => {
 	return data.find(item=>item.key===id) || null

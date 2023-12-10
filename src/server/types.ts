@@ -88,16 +88,14 @@ export interface BaseMessage<R = Role, C = string> {
 
 export type Message = BaseMessage<Extract<Role, 'user'>, string>
 
-interface MessageContent {
-    array: (ImageFile | Text)[];
-}
+type MessageContent = Array<Text>
 
-interface ImageFile {
-    type: 'image_file';
-    image_file: {
-        file_id: string;
-    };
-}
+// interface ImageFile {
+//     type: 'image_file';
+//     image_file: {
+//         file_id: string;
+//     };
+// }
 
 interface Text {
     type: 'text';
@@ -107,12 +105,11 @@ interface Text {
     };
 }
 
-export interface ResultMessage<T = MessageContent> extends BaseMessage<T> {
+export interface ResultMessage<R = Role,T = MessageContent> extends BaseMessage< R,T> {
     assistant_id: Assistant2['id'],
     thread_id: Thread['id']
     run_id: string
 }
-
 
 export interface Thread<T = string> {
     id: string,

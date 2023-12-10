@@ -14,12 +14,16 @@ import ForwardToInboxRoundedIcon from '@mui/icons-material/ForwardToInboxRounded
 import ReplyRoundedIcon from '@mui/icons-material/ReplyRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import { AssistantType } from '@/common/types/assistant'
+import { threadsDelete } from '@/server/threads.modules/threads.service'
 
 type ChatContentProps = {
 	assistantInfo: AssistantType | null
 }
 
-const ChatContent: FC<ChatContentProps> = ({assistantInfo = {} as AssistantType}) => {
+const ChatContent: FC<ChatContentProps> = ({ assistantInfo = {} as AssistantType }) => {
+	if (!assistantInfo) return (
+		<div>null</div>
+	)
 	const [open, setOpen] = useState([false, false, false])
 
 	const handleSnackbarOpen = (index: number) => {
@@ -29,6 +33,10 @@ const ChatContent: FC<ChatContentProps> = ({assistantInfo = {} as AssistantType}
 	}
 
 	const handleSnackbarClose = (index: number) => {
+		if (index === 2) {
+			console.log('delete')
+			threadsDelete(assistantInfo.key)
+		}
 		const updatedOpen = [...open]
 		updatedOpen[index] = false
 		setOpen(updatedOpen)
@@ -54,8 +62,8 @@ const ChatContent: FC<ChatContentProps> = ({assistantInfo = {} as AssistantType}
 				}}
 			>
 				<Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-					<Avatar color={assistantInfo?.avatar.color}>
-						{assistantInfo?.avatar.label}
+					<Avatar color={assistantInfo?.avatar?.color}>
+						{assistantInfo?.avatar?.label}
 					</Avatar>
 					<Box sx={{ ml: 2 }}>
 						<Typography level="title-sm" textColor="text.primary" mb={0.5}>
@@ -76,7 +84,7 @@ const ChatContent: FC<ChatContentProps> = ({assistantInfo = {} as AssistantType}
 						startDecorator={<ReplyRoundedIcon />}
 						onClick={() => handleSnackbarOpen(0)}
 					>
-						{assistantInfo?.status === 'faild' ? '重试': assistantInfo?.status === 'success'? '分享导出': '暂停'}
+						{assistantInfo?.status === 'faild' ? '重试' : assistantInfo?.status === 'success' ? '分享导出' : '暂停'}
 					</Button>
 					<Snackbar
 						color="success"
@@ -91,11 +99,11 @@ const ChatContent: FC<ChatContentProps> = ({assistantInfo = {} as AssistantType}
 								variant="soft"
 								color="neutral"
 							>
-                撤回
+								撤回
 							</Button>
 						}
 					>
-            xx成功.
+						xx成功.
 					</Snackbar>
 					<Button
 						size="sm"
@@ -104,7 +112,7 @@ const ChatContent: FC<ChatContentProps> = ({assistantInfo = {} as AssistantType}
 						startDecorator={<ForwardToInboxRoundedIcon />}
 						onClick={() => handleSnackbarOpen(1)}
 					>
-            转发消息
+						转发消息
 					</Button>
 					<Snackbar
 						color="success"
@@ -119,11 +127,11 @@ const ChatContent: FC<ChatContentProps> = ({assistantInfo = {} as AssistantType}
 								variant="soft"
 								color="neutral"
 							>
-                撤回
+								撤回
 							</Button>
 						}
 					>
-            Your message has been forwarded.
+						Your message has been forwarded.
 					</Snackbar>
 					<Button
 						size="sm"
@@ -132,7 +140,7 @@ const ChatContent: FC<ChatContentProps> = ({assistantInfo = {} as AssistantType}
 						startDecorator={<DeleteRoundedIcon />}
 						onClick={() => handleSnackbarOpen(2)}
 					>
-            删除聊天
+						删除聊天
 					</Button>
 					<Snackbar
 						color="danger"
@@ -147,11 +155,11 @@ const ChatContent: FC<ChatContentProps> = ({assistantInfo = {} as AssistantType}
 								variant="soft"
 								color="neutral"
 							>
-                撤回
+								撤回
 							</Button>
 						}
 					>
-            xx已被删除.
+						xx已被删除.
 					</Snackbar>
 				</Box>
 			</Box>
@@ -168,7 +176,7 @@ const ChatContent: FC<ChatContentProps> = ({assistantInfo = {} as AssistantType}
 						</Chip>
 					}
 				>
-					{assistantInfo ? assistantInfo.title: '-'}
+					{assistantInfo ? assistantInfo.title : '-'}
 				</Typography>
 				<Box
 					sx={{
@@ -185,11 +193,11 @@ const ChatContent: FC<ChatContentProps> = ({assistantInfo = {} as AssistantType}
 							level="body-sm"
 							sx={{ mr: 1, display: 'inline-block' }}
 						>
-              From
+							From
 						</Typography>
 						<Tooltip size="sm" title="Copy email" variant="outlined">
-							<Chip size="sm" variant="soft" color="primary" onClick={() => {}}>
-								{assistantInfo?.mode.name}
+							<Chip size="sm" variant="soft" color="primary" onClick={() => { }}>
+								{assistantInfo?.mode?.name}
 							</Chip>
 						</Tooltip>
 					</Box>
@@ -197,7 +205,7 @@ const ChatContent: FC<ChatContentProps> = ({assistantInfo = {} as AssistantType}
 			</Box>
 			<Divider />
 			<Typography level="body-sm" mt={2} mb={2}>
-				{assistantInfo ? assistantInfo.body: '-'}
+				{assistantInfo ? assistantInfo.body : '-'}
 			</Typography>
 		</Sheet>
 	)

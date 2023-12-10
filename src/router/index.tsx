@@ -32,7 +32,7 @@ const muiRouter = createBrowserRouter([
 						path: '/chats',
 						loader: async(content) => {
 							console.log(content)
-							return redirect('/chats/sgahuivh')
+							return redirect('/chats/thread_DXbgCJ8krUj0rCAgCsZ3VTOQ')
 						},
 					},
 					{

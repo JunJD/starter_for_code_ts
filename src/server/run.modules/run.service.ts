@@ -1,7 +1,7 @@
 import { Run, Thread } from '../types'
 import { CreateRunResult } from './run.controller'
 
-export const runCreate = async (params: Run, threadId: Thread['id']): Promise<CreateRunResult> => {
+export const runCreate = async (params: Run, threadId: Thread['id']): Promise<CreateRunResult|null> => {
 	const response = await window.fetch(`${process.env.FETCH_BASE_URL}/v1/threads/${threadId}/runs` , {
 		method: 'POST',
 		headers: {
@@ -15,8 +15,9 @@ export const runCreate = async (params: Run, threadId: Thread['id']): Promise<Cr
 		})
 	})
 	const run = await response.json()
-	if (run.error) {
-		throw new Error(run.error.message)
+	if (run.last_error) {
+		console.error(run.last_error.message)
+		return null
 	}
 	return run
 }

@@ -11,7 +11,7 @@ export interface CreateRunResult extends CreateResult {
     file_ids: string[],
 }
 
-export const runCreate =  async (params: Run, threadId: Thread['id']): Promise<CreateRunResult> => {
+export const runCreate =  async (params: Run, threadId: Thread['id']): Promise<CreateRunResult|null> => {
 	const run = await service.runCreate(params, threadId)
 	return run
 }
