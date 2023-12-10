@@ -16,7 +16,7 @@ export const ModelListGet = async(): Promise<listResult> => {
 
 	fitstTimer = currentTimer
 
-	const response = await fetch('https://run.dingjunjie.com/v1/models', {
+	const response = await fetch(`${process.env.FETCH_BASE_URL}/v1/models`, {
 		method: 'GET',
 		headers: {
 			'Content-Type': 'application/json',

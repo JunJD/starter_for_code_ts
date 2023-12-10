@@ -69,6 +69,7 @@ function getClientEnvironment(publicUrl) {
         return env;
       },
       {
+        FETCH_BASE_URL: process.env.FETCH_BASE_URL,
         CHAT_GPT_API: process.env.CHAT_GPT_API,
         // Useful for determining whether we’re running in production mode.
         // Most importantly, it switches React into the correct mode.

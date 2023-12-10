@@ -1,7 +1,7 @@
-import { CreateResult, Threads } from '../types'
+import { CreateResult, Thread } from '../types'
 
-export const threadsCreate = async (params: Partial<Threads>): Promise<CreateResult> => {
-	const response = await window.fetch('https://run.dingjunjie.com/v1/threads', {
+export const threadsCreate = async (params: Partial<Thread>): Promise<CreateResult> => {
+	const response = await window.fetch(`${process.env.FETCH_BASE_URL}/v1/threads`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json;charset=UTF-8',

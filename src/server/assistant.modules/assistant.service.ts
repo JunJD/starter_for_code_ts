@@ -1,7 +1,7 @@
 import { Assistant, DeleteResult, listResult } from '../types'
 
 export const AsssistantCreate = async (params: Partial<Assistant>) => {
-	const response = await window.fetch('https://run.dingjunjie.com/v1/assistants', {
+	const response = await window.fetch(`${process.env.FETCH_BASE_URL}/v1/assistants`, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json;charset=UTF-8',
@@ -25,7 +25,7 @@ export const AsssistantCreate = async (params: Partial<Assistant>) => {
 }
 
 export const AsssistantUpdate = async (params: Partial<Assistant>) => {
-	const response = await window.fetch('https://run.dingjunjie.com/v1/assistants/' + params.id, {
+	const response = await window.fetch(`${process.env.FETCH_BASE_URL}/v1/assistants/` + params.id, {
 		method: 'POST',
 		headers: {
 			'Content-Type': 'application/json;charset=UTF-8',

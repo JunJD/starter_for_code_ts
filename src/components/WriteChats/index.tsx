@@ -12,17 +12,19 @@ import AttachFileRoundedIcon from '@mui/icons-material/AttachFileRounded'
 import InsertPhotoRoundedIcon from '@mui/icons-material/InsertPhotoRounded'
 import FormatListBulletedRoundedIcon from '@mui/icons-material/FormatListBulletedRounded'
 import { FormEventHandler, forwardRef, useEffect, useRef } from 'react'
+import { Assistant2 } from '@/server/types'
 
 interface WriteChatsProps {
-  open?: boolean;
-  onClose?: () => void;
-  onSend?: (form: {[k: string]: FormDataEntryValue}) => void;
+	open?: boolean;
+	assistantList: Array<Assistant2>
+	onClose?: () => void;
+	onSend?: (form: { [k: string]: FormDataEntryValue }) => void;
 }
 
 const WriteChats = forwardRef<HTMLDivElement, WriteChatsProps>(
-	function WriteChats({ open, onClose, onSend }, ref) {
+	function WriteChats({ open, assistantList, onClose, onSend }, ref) {
 		const TextareaRef = useRef(null)
-		useEffect(()=>{
+		useEffect(() => {
 			// eslint-disable-next-line @typescript-eslint/no-explicit-any
 			open && console.dir((TextareaRef.current as any).childNodes[0].focus())
 		}, [open])
@@ -33,14 +35,14 @@ const WriteChats = forwardRef<HTMLDivElement, WriteChatsProps>(
 			const formData = new FormData(e.currentTarget)
 			const formJson = Object.fromEntries((formData).entries())
 			console.log('formJson==>', formJson)
-			if(onSend) {
+			if (onSend) {
 				await onSend(formJson)
 				onClose && onClose()
 			} else {
 				onClose && onClose()
 			}
 		}
-		
+
 		return (
 			<Sheet
 				ref={ref}
@@ -76,25 +78,26 @@ const WriteChats = forwardRef<HTMLDivElement, WriteChatsProps>(
 							<FormLabel>Assistant</FormLabel>
 							<Select
 								name='assistant'
-								placeholder="请选择 助理" 
+								placeholder="请选择 助理"
 								aria-label="Assistant"
 								startDecorator={<PeopleRoundedIcon />}
 								endDecorator={
 									<Chip size="sm" color="danger" variant="soft">
-      10+
+										10+
 									</Chip>
 								}
 							>
-								<Option value="dog">Dog</Option>
-								<Option value="cat">Cat</Option>
-								<Option value="fish">Fish</Option>
-								<Option value="bird">Bird</Option>
+								{assistantList?.map((assistant) => {
+									return (
+										<Option key={assistant.id} value={assistant.id}>{assistant.name}</Option>
+									)
+								})}
 							</Select>
 						</FormControl>
 						<FormControl>
 							<FormLabel>Priority</FormLabel>
 							<Select
-								placeholder="请选择 优先级" 
+								placeholder="请选择 优先级"
 								aria-label="Priority"
 								startDecorator={<PeopleRoundedIcon />}
 							>
@@ -144,7 +147,7 @@ const WriteChats = forwardRef<HTMLDivElement, WriteChatsProps>(
 											sx={{ borderRadius: 'sm' }}
 											type='submit'
 										>
-                    Send
+											Send
 										</Button>
 									</Stack>
 								}

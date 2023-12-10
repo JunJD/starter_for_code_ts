@@ -1,7 +1,7 @@
 import { FileType } from '../types'
 
 export const FilesCreate =  async (fromData: FormData) => {
-	const response = await window.fetch('https://run.dingjunjie.com/v1/files', {
+	const response = await window.fetch(`${process.env.FETCH_BASE_URL}/v1/files`, {
 		method: 'POST',
 		headers: {
 			// 'Content-Type': 'multipart/form-data',
@@ -18,7 +18,7 @@ export const FilesCreate =  async (fromData: FormData) => {
 }
 
 export const FilesGet =  async () => {
-	const response = await window.fetch('https://run.dingjunjie.com/v1/files', {
+	const response = await window.fetch(`${process.env.FETCH_BASE_URL}/v1/files`, {
 		method: 'GET',
 		headers: {
 
@@ -36,7 +36,7 @@ export const FilesGet =  async () => {
 
 export const FilesDelete =  async (id: FileType['id']) => {
 
-	const response = await window.fetch('https://run.dingjunjie.com/v1/files/'+id, {
+	const response = await window.fetch(`${process.env.FETCH_BASE_URL}/v1/files/${id}`, {
 		method: 'DELETE',
 		headers: {
 			'Content-Type': 'application/json;charset=UTF-8',
