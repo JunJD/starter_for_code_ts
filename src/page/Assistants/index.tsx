@@ -18,6 +18,8 @@ import { CreateRunResult, runCreate } from '@/server/run.modules/run.controller'
 import { runRetrieve } from '@/server/run.modules/run.service'
 import { /*messageCreate,*/ messageListByThread } from '@/server/messages.modules/messages.service'
 import { threadsListGet } from '@/server/threads.modules/threads.service'
+import { assistantListState } from '@/RecoilAtomStore/gpt/asssistantList'
+import { useRecoilState } from 'recoil'
 
 enum executeEnum {
 	continue,
@@ -29,13 +31,18 @@ const Assistants = () => {
 	const [assistantList, setAssistantList] = useState<AssistantType[]>([])
 	const [assistants, setAssistants] = useState<Array<Assistant2>>([])
 
+	const [assistants2] = useRecoilState<Assistant2[]>(assistantListState)
 	useEffect(() => {
 		getAssistantList();
 		(async () => {
 			const list = await AsssistantListGet()
-			setAssistants(list.data)
+			setAssistants(list)
 		})()
 	}, [])
+
+	useEffect(()=>{
+		console.log('assistants2==>', assistants2)
+	},[assistants2])
 
 	const getAssistantList = async() => {
 		const assistantList = await threadsListGet()

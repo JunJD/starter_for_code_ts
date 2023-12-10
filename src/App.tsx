@@ -4,11 +4,11 @@ import muiRouter from '@/router'
 import Providers from '@/common/Providers'
 function App() {
 	return (
-		<RecoilRoot>
-			<Providers>
+		<Providers>
+			<RecoilRoot>
 				<RouterProvider router={muiRouter} />
-			</Providers>
-		</RecoilRoot>
+			</RecoilRoot>
+		</Providers>
 	)
 }
 

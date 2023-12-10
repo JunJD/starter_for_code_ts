@@ -29,9 +29,11 @@ import { useNavigate } from 'react-router-dom'
 import { FilesGet, FilesCreate, FilesDelete } from '@/server/files.modules/files.controller'
 import { AsssistantCreate, AsssistantUpdate } from '@/server/assistant.modules/assistant.controller'
 
-import { Assistant, FileType, GPTName, Tool } from '@/server/types'
+import { Assistant, Assistant2, FileType, GPTName, Tool } from '@/server/types'
 import { Theme } from '@mui/joy'
 import useMediaQuery from '@/common/hooks/useMediaQuery'
+import { assistantListState } from '@/RecoilAtomStore/gpt/asssistantList'
+import { useRecoilState } from 'recoil'
 
 interface DisplayFileType extends FileType {
 	icon: ReactElement,
@@ -46,6 +48,7 @@ export default function AssistansProfile() {
 	const navigate = useNavigate()
 	const [fileList, setFileList] = useState<DisplayFileType[]>([])
 	const [assistant, saveAssistant] = useState<Assistant>({} as Assistant )
+	const [assistants2, setAssistants2] = useRecoilState<Assistant2[]>(assistantListState)
 	const GoBack = () => {
 		navigate(-1)
 	}
@@ -53,6 +56,7 @@ export default function AssistansProfile() {
 	useEffect(() => {
 		getFileList()
 	}, [])
+	
 
 	const getFileList = async() => {
 		const initFileData = await FilesGet()
@@ -102,16 +106,26 @@ export default function AssistansProfile() {
 		const formData = new FormData(e.currentTarget)
 		const formJson = Object.fromEntries((formData).entries())
 
-		const assistant = await AsssistantCreate({
+		const assistantInfo = await AsssistantCreate({
 			name: formJson.name as string,
 			tools: [{ type: formJson.tool }] as Array< { type:Tool  } >,
 			model: formJson.model as GPTName,
 			description: formJson.description  as string,
 		})
-		saveAssistant(assistant)
+		saveAssistant(assistantInfo)
+		console.log('fetch')
+		setAssistants2((prev)=>{
+			return prev.concat(assistantInfo)
+		})
+		console.log('fetchend')
 	}
+
+	useEffect(()=>{
+		console.log('assistants2==>' , assistants2)
+	}, [assistants2])
+
 	
-	const handleUpdateInstructions: FormEventHandler<HTMLFormElement> = (e) => {
+	const handleUpdateInstructions: FormEventHandler<HTMLFormElement> = async(e) => {
 		if(!assistant) {
 			alert('先创建一个助手')
 			return 
@@ -123,9 +137,18 @@ export default function AssistansProfile() {
 		// eslint-disable-next-line @typescript-eslint/no-explicit-any
 		const formJson = Object.fromEntries((formData).entries())
 		console.log(formJson, 'formJson')
-		AsssistantUpdate({
+		const assistantInfo = await AsssistantUpdate({
 			id: assistant.id,
 			instructions: formJson.instructions  as string,
+		})
+
+		setAssistants2((prev)=>{
+			return prev.map((item)=>{
+				if(item.id === assistantInfo.id) {
+					return assistantInfo
+				}
+				return item
+			})
 		})
 	}
 	

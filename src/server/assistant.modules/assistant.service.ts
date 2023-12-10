@@ -51,13 +51,13 @@ let fitstTimer: number = 0
 
 let list: listResult = { data: [] }
 
-export const AsssistantListGet = async (): Promise<listResult> => {
+export const AsssistantListGet = async (): Promise<listResult['data']> => {
 
 	const currentTimer = Date.now()
 
 	if (fitstTimer && ((currentTimer - fitstTimer) < (1000 * 60)) && list.data.length) {
 		fitstTimer = currentTimer
-		return list
+		return list.data
 	}
 
 	fitstTimer = currentTimer
@@ -72,7 +72,7 @@ export const AsssistantListGet = async (): Promise<listResult> => {
 	})
 	list = await response.json()
 
-	return list
+	return list.data
 }
 
 

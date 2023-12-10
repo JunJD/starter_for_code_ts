@@ -32,7 +32,7 @@ const AssistransSettingContent = () => {
 
 	const getAssistantList = async () => {
 		const list = await AsssistantListGet()
-		setAssistantList(list.data.map(item => ({
+		setAssistantList(list.map(item => ({
 			...item,
 			companyData: [
 				{
