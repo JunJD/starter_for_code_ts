@@ -62,8 +62,8 @@ const ChatContent: FC<ChatContentProps> = ({ assistantInfo = {} as AssistantType
 				}}
 			>
 				<Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
-					<Avatar color={assistantInfo?.avatar?.color}>
-						{assistantInfo?.avatar?.label}
+					<Avatar>
+						{assistantInfo?.title?.slice(0,1)}
 					</Avatar>
 					<Box sx={{ ml: 2 }}>
 						<Typography level="title-sm" textColor="text.primary" mb={0.5}>

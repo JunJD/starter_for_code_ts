@@ -1,5 +1,5 @@
 import store, { defaultTables } from '@/localBase'
-import { CreateResult, DeleteResult, ResultMessage, Thread } from '../types'
+import { CreateResult, DeleteResult, Thread, Thread2 } from '../types'
 
 const threadTablePromise = (async()=>{
 	if(defaultTables.includes('thread')){
@@ -62,19 +62,12 @@ export const threadsDelete = async (threadId: Thread['id']): Promise<DeleteResul
 	return deleteResult
 }
 
-interface Thread2 {
-	id: string,
-	createdAt: string,
-	title: string,
-	messagelist?: { data: ResultMessage[] }
-}
-
 export const threadsListGet =  async() => {
 	const threadTable = await threadTablePromise
 	const threadsList: Thread2[] = []
 	await threadTable?.iterate<Thread2, void>((value)=>{
 		threadsList.push(value)
 	})
-	threadsList[0].messagelist?.data[0].content[0]
-	return threadsList
+
+	return {data: threadsList}
 }

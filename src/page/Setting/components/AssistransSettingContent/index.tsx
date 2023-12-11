@@ -1,12 +1,13 @@
 import PageMain from '@/components/PageMain'
-import { Avatar, Box, Button, Chip, Divider,  List, ListItem, ListItemContent, ListItemDecorator, Sheet, Typography } from '@mui/joy'
+import { Avatar, Box, Button, Chip, Divider,  List, Sheet, Typography } from '@mui/joy'
 import { DeleteRounded, EditRounded, ExpandMoreTwoTone } from '@mui/icons-material'
-import { useEffect, useState } from 'react'
-import { AsssistantListGet } from '@/server/assistant.modules/assistant.service'
-import { Assistant } from '@/server/types'
+
+import { Assistant, Assistant2 } from '@/server/types'
 import { AsssistantDelete } from '@/server/assistant.modules/assistant.controller'
 import DropdownRender, { DropdownRenderProps } from '@/components/DropdownRender'
 import { Operate } from '@/common/types/com'
+import { assistantListState } from '@/RecoilAtomStore/atom/gpt/asssistantList'
+import { useRecoilState } from 'recoil'
 
 const assistantsMenuRenderList: DropdownRenderProps['renderList'] = [
 	{
@@ -24,30 +25,7 @@ const assistantsMenuRenderList: DropdownRenderProps['renderList'] = [
 
 
 const AssistransSettingContent = () => {
-	const [asssistantList, setAssistantList] = useState<Assistant[]>([])
-
-	useEffect(() => {
-		getAssistantList()
-	}, [])
-
-	const getAssistantList = async () => {
-		const list = await AsssistantListGet()
-		setAssistantList(list.map(item => ({
-			...item,
-			companyData: [
-				{
-					role: 'Rust中的abcd',
-					name: 'token消耗12090',
-					years: '2023-12-06',
-				},
-				{
-					role: 'Rust中的2121',
-					name: 'token消耗12090',
-					years: '2023-12-07',
-				},
-			],
-		})))
-	}
+	const [assistants, setAssistants] = useRecoilState<Assistant2[]>(assistantListState)
 
 	const handleCommand = (key: Operate, id: Assistant['id']) => {
 		if(key === 'delete') {
@@ -58,7 +36,7 @@ const AssistransSettingContent = () => {
 	const handleDeleteModel = async (id: Assistant['id']) => {
 		const result = await AsssistantDelete(id)
 		if (result.deleted) {
-			setAssistantList((prev: Assistant[]) => {
+			setAssistants((prev: Assistant2[]) => {
 				return prev.filter(it => it.id !== id)
 			})
 		} else {
@@ -75,7 +53,7 @@ const AssistransSettingContent = () => {
 					gap: 2,
 				}}
 			>
-				{asssistantList.map((person, index) => (
+				{assistants.map((assistant, index) => (
 					<Sheet
 						key={index}
 						component="li"
@@ -92,43 +70,16 @@ const AssistransSettingContent = () => {
 								sx={{ borderRadius: '50%' }}
 							/>
 							<Box sx={{ marginRight: 'auto' }} >
-								<Typography level="title-md">{person.name}</Typography>
-								<Typography level="body-xs">{person.instructions}</Typography>
+								<Typography level="title-md">{assistant.name}</Typography>
+								<Typography level="body-xs">{assistant.description}</Typography>
 							</Box>
 							<DropdownRender
-								onCommond={(commnd)=>{ handleCommand(commnd, person.id) }}
+								onCommond={(commnd)=>{ handleCommand(commnd, assistant.id) }}
 								renderList={assistantsMenuRenderList}
 							/>
 						</Box>
 						<Divider component="div" sx={{ my: 2 }} />
-						<List sx={{ '--ListItemDecorator-size': '40px', gap: 2 }}>
-							{person.companyData.map((company, companyIndex) => (
-								<ListItem key={companyIndex} sx={{ alignItems: 'flex-start' }}>
-									<ListItemDecorator
-										sx={{
-											'&:before': {
-												content: '""',
-												position: 'absolute',
-												height: '100%',
-												width: '1px',
-												bgcolor: 'divider',
-												left: 'calc(var(--ListItem-paddingLeft) + 12px)',
-												top: '50%',
-											},
-										}}
-									>
-										<Avatar
-											sx={{ '--Avatar-size': '24px' }}
-										/>
-									</ListItemDecorator>
-									<ListItemContent>
-										<Typography level="title-sm">{company.role}</Typography>
-										<Typography level="body-xs">{company.name}</Typography>
-									</ListItemContent>
-									<Typography level="body-xs">{company.years}</Typography>
-								</ListItem>
-							))}
-						</List>
+						<Typography level="body-xs">{assistant.instructions}</Typography>
 						<Button
 							size="sm"
 							variant="plain"
@@ -140,7 +91,7 @@ const AssistransSettingContent = () => {
 						<Divider component="div" sx={{ my: 2 }} />
 						<Typography level="title-sm">Tool tags:</Typography>
 						<Box sx={{ mt: 1.5, display: 'flex', gap: 1 }}>
-							{person.tools.map((tool, toolIndex) => (
+							{assistant.tools.map((tool, toolIndex) => (
 								<Chip
 									key={toolIndex}
 									variant="outlined"

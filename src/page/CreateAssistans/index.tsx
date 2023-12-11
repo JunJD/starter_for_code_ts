@@ -1,8 +1,7 @@
 import { Box } from '@mui/joy'
 import AssistansProfile from '@/page/CreateAssistans/components/AssistansProfile'
 import { useSettings } from '@/common/hooks/useSettings'
-import { useEffect, useLayoutEffect } from 'react'
-import { useLoaderData } from 'react-router-dom'
+import { useLayoutEffect } from 'react'
 import ScrollWrap from '@/components/ScrollWrap'
 
 const CreateAssistans = () => {
@@ -17,10 +16,6 @@ const CreateAssistans = () => {
 			}
 		})
 	},[])
-	const ModelList = useLoaderData()
-	useEffect(()=>{
-		console.log('ModelList==> ',ModelList)
-	},[ModelList])
 	return (
 		<Box
 			component="main"

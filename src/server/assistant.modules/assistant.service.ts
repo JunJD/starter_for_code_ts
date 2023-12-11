@@ -1,4 +1,4 @@
-import { Assistant, DeleteResult, listResult } from '../types'
+import { Assistant, Assistant2, DeleteResult, listResult } from '../types'
 
 export const AsssistantCreate = async (params: Partial<Assistant>) => {
 	const response = await window.fetch(`${process.env.FETCH_BASE_URL}/v1/assistants`, {
@@ -51,13 +51,13 @@ let fitstTimer: number = 0
 
 let list: listResult = { data: [] }
 
-export const AsssistantListGet = async (): Promise<listResult['data']> => {
+export const AsssistantListGet: () => Promise<listResult<Assistant2>> = async () => {
 
 	const currentTimer = Date.now()
 
 	if (fitstTimer && ((currentTimer - fitstTimer) < (1000 * 60)) && list.data.length) {
 		fitstTimer = currentTimer
-		return list.data
+		return list
 	}
 
 	fitstTimer = currentTimer
@@ -71,8 +71,7 @@ export const AsssistantListGet = async (): Promise<listResult['data']> => {
 		},
 	})
 	list = await response.json()
-
-	return list.data
+	return list
 }
 
 

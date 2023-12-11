@@ -1,11 +1,11 @@
-import { AsssistantListGet } from '@/server/assistant.modules/assistant.service'
+
+import { listResult } from '@/server/types'
 import { AtomEffect } from 'recoil'
 
-const remoteFetchInitValEffect = <T>(key: string) => ({setSelf}: Parameters<AtomEffect<T>>['0']) => {
+const remoteFetchInitValEffect = <T>(fetch: () => Promise<listResult>) => ({setSelf}: Parameters<AtomEffect<T>>['0']) => {
 /** 如果有一个持久化的值，在加载时设置它 */
 	const loadPersisted = async () => {
-		const savedValue = await AsssistantListGet()
-		console.log(`recoil[${key}]初始值: ${JSON.stringify(savedValue)}`)
+		const savedValue = (await fetch()).data
 		if (savedValue != null) {
 			setSelf(savedValue as T)
 		}

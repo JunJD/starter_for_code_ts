@@ -1,5 +1,5 @@
 import store, { defaultTables } from '@/localBase'
-import { Message, ResultMessage, Thread } from '../types'
+import { Message, ResultMessage, Thread, Thread2, listResult } from '../types'
 
 const threadTablePromise = (async()=>{
 	if(defaultTables.includes('thread')){
@@ -53,7 +53,7 @@ export const messageListByThread = async(threadId: Thread['id']): Promise<Result
 	const threadTable = await threadTablePromise
 	if(threadTable) {
 		const curr =  await threadTable.getItem(threadId)
-		console.log('curr', curr)
+
 		if(curr) {
 			threadTable.setItem(threadId, {
 				...curr,
@@ -67,3 +67,33 @@ export const messageListByThread = async(threadId: Thread['id']): Promise<Result
 	
 	return messagelist
 }
+
+
+
+let fitstTimer: number = 0
+
+let list: listResult = { data: [] }
+
+export const messageListGet: (threadId: Thread2['id']) => Promise<listResult<ResultMessage>> = async (threadId) => {
+
+	const currentTimer = Date.now()
+
+	if (fitstTimer && ((currentTimer - fitstTimer) < (1000 * 60)) && list.data.length) {
+		fitstTimer = currentTimer
+		return list
+	}
+
+	fitstTimer = currentTimer
+
+	const response = await fetch(`${process.env.FETCH_BASE_URL}/v1/threads/${threadId}/messages`, {
+		method: 'GET',
+		headers: {
+			'Content-Type': 'application/json',
+			authorization: 'Bearer ' + process.env.CHAT_GPT_API,
+			'OpenAI-Beta': 'assistants=v1'
+		},
+	})
+	list = await response.json()
+	return list
+}
+

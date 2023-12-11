@@ -3,35 +3,15 @@ import AutocompleteOption from '@mui/joy/AutocompleteOption'
 import FormControl, { FormControlProps } from '@mui/joy/FormControl'
 import FormLabel from '@mui/joy/FormLabel'
 import Typography from '@mui/joy/Typography'
-import { useEffect, useState } from 'react'
-import { ModelListGet } from '@/server/model.modules/model.controller'
+import { Model } from '@/server/types'
+import { modeListState } from '@/RecoilAtomStore/atom/gpt/modelList'
+import { useRecoilState } from 'recoil'
 
-
-interface CountryType {
-	code: string;
-	label: string;
-	ownedBy: string;
-	suggested?: boolean;
-}
 
 export default function ModelSelector(props: FormControlProps) {
 	const { sx, ...other } = props
-	const [listModel, setListModel] = useState<CountryType[]>([])
-	useEffect(() => {
-		getModels().catch(() => {
-			getModels()
-		})
-	}, [])
-	const getModels = async () => {
-		const { data: reslist } = await ModelListGet()
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		setListModel(reslist?.map((item: any) => ({
-			code: item.id,
-			label: item.id,
-			ownedBy: item.owned_by
-		})) || [])
-	}
-
+	const [modeList] = useRecoilState<Array<Model>>(modeListState)
+	
 	return (
 		<FormControl
 			{...other}
@@ -43,13 +23,13 @@ export default function ModelSelector(props: FormControlProps) {
 				size="sm"
 				autoHighlight
 				isOptionEqualToValue={(option, value) => option.code === value.code}
-				defaultValue={{ label: 'gpt-3.5-turbo-1106', code: 'gpt-3.5-turbo-1106', ownedBy: 'openai' }}
-				options={listModel}
+				defaultValue={{ label: 'gpt-3.5-turbo-1106', code: 'gpt-3.5-turbo-1106', owned_by: 'openai' }}
+				options={modeList.map(item=>({label: item.id, code: item.id, owned_by: item.owned_by}))}
 				renderOption={(optionProps, option) => (
-					<AutocompleteOption {...optionProps}>
+					<AutocompleteOption {...optionProps} key={option.code}>
 						{option.label}
 						<Typography component="span" textColor="text.tertiary" ml={0.5}>
-							(by--{option.ownedBy})
+							(by--{option.owned_by})
 						</Typography>
 					</AutocompleteOption>
 				)}

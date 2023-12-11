@@ -1,11 +1,11 @@
-import { listResult } from '../types'
+import { listResult, Model } from '../types'
 
 
 let fitstTimer: number = 0
 
 let list: listResult = {data: []}
 
-export const ModelListGet = async(): Promise<listResult> => {
+export const ModelListGet = async(): Promise<listResult<Model>> => {
 
 	const currentTimer = Date.now()
 

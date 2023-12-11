@@ -32,7 +32,7 @@ import { AsssistantCreate, AsssistantUpdate } from '@/server/assistant.modules/a
 import { Assistant, Assistant2, FileType, GPTName, Tool } from '@/server/types'
 import { Theme } from '@mui/joy'
 import useMediaQuery from '@/common/hooks/useMediaQuery'
-import { assistantListState } from '@/RecoilAtomStore/gpt/asssistantList'
+import { assistantListState } from '@/RecoilAtomStore/atom/gpt/asssistantList'
 import { useRecoilState } from 'recoil'
 
 interface DisplayFileType extends FileType {

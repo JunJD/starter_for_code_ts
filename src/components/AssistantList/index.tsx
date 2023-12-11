@@ -7,10 +7,10 @@ import ListDivider from '@mui/joy/ListDivider'
 import ListItem from '@mui/joy/ListItem'
 import ListItemButton, { listItemButtonClasses } from '@mui/joy/ListItemButton'
 import ListItemDecorator from '@mui/joy/ListItemDecorator'
-import { AssistantType } from '@/common/types/assistant'
+import { Context } from '@/common/types/assistant'
 import { useNavigate, useParams } from 'react-router-dom'
 
-const AssistantList: FC<{ data: AssistantType[] }> = ({ data }) => {
+const AssistantList: FC<{ data: Context[] }> = ({ data }) => {
 	const navigate = useNavigate()
 	const params = useParams()
 	const [currentActive, setActive] = useState<string>('chats')
@@ -43,8 +43,8 @@ const AssistantList: FC<{ data: AssistantType[] }> = ({ data }) => {
 							onClick={() => { handleTo(item.key) }}
 						>
 							<ListItemDecorator sx={{ alignSelf: 'flex-start' }}>
-								<Avatar color={item.avatar.color}>
-									{item.avatar.label}
+								<Avatar>
+									{item.title?.slice(0, 1)}
 								</Avatar>
 							</ListItemDecorator>
 							<Box sx={{ pl: 2, width: '100%' }}>
@@ -74,7 +74,9 @@ const AssistantList: FC<{ data: AssistantType[] }> = ({ data }) => {
 									<Typography level="title-sm" sx={{ mb: 0.5 }}>
 										{item.title}
 									</Typography>
-									<Typography level="body-sm">{item.summary}</Typography>
+									<Typography sx={{
+
+									}} level="body-sm">{item.body}</Typography>
 								</div>
 							</Box>
 						</ListItemButton>

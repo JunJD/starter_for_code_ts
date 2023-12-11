@@ -1,5 +1,19 @@
 
-export type GPTName = 'gpt-3.5-turbo' | 'gpt-4'
+export interface Model {
+    id: GPTName,
+    owned_by: string
+}
+
+export interface Thread2 {
+	id: string,
+	createdAt: string,
+	title: string,
+    firstMsg: string,
+    assistants: Assistant2['id'][]
+	messagelist?: ResultMessage[][]
+}
+
+export type GPTName = 'gpt-3.5-turbo' | 'gpt-3.5-turbo-1106' |'gpt-4'
 
 export type Role = 'user' | 'assistant'
 
