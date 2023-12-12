@@ -1,56 +1,32 @@
+import { contextListState } from '@/RecoilAtomStore/Selector/gpt/contextList'
 import { DEFAULT_GRID_COLUMNS_CONFIG } from '@/common/context/SettingsContext'
 import { useSettings } from '@/common/hooks/useSettings'
-import { AssistantType } from '@/common/types/assistant'
+import { Context } from '@/common/types/assistant'
 // import { getAssistantById } from '@/mock'
 import ChatContent from '@/page/Assistants/components/ChatContent'
-import { threadsListGet } from '@/server/threads.modules/threads.service'
-import { useEffect, useLayoutEffect, useState } from 'react'
+import { useLayoutEffect, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
+import { useRecoilValue } from 'recoil'
 
 const Chat = () => {
 	const params = useParams()
-	const [assistantInfo, setAssistantInfo] = useState<AssistantType | null>({} as AssistantType)
+	const contextList = useRecoilValue(contextListState)
 
 	const { settings, saveSettings } = useSettings()
 
-	useLayoutEffect(() => {
+	useLayoutEffect(() => { // 布局
 		saveSettings({
 			...settings,
 			gridTemplateColumnsConfig: DEFAULT_GRID_COLUMNS_CONFIG
 		})
 	}, [])
 
-	useEffect(() => {
-		if (params.id) {
-			getAssistantById2(params.id)
-		}
-	}, [params])
+	const assistantInfo: Context | null = useMemo(()=>{
+		return contextList.find(it=>{
+			return it.key === params.id
+		}) ?? null
+	}, [params.id])
 
-	const getAssistantById2 = async (id: string) => {
-		const assistantList = (await threadsListGet()).data?.map((item) => {
-			return {
-				name: item.title,
-				key: item.id,
-				avatar: {
-					label: 'R',
-					color: 'danger',
-				},
-				status: 'run',
-				tag: 'learn',
-				mode: {
-					name: 'gpt-3.5-turbo'
-				},
-				date: item.createdAt,
-				title: item.title,
-				body: item.firstMsg,
-				color: 'warning.400',
-			}
-		})
-		// eslint-disable-next-line @typescript-eslint/no-explicit-any
-		const info = assistantList.find((it: any) => it.key === id as string)
-		console.log(info, 'info')
-		setAssistantInfo(info as AssistantType)
-	}
 
 	return (
 		<ChatContent assistantInfo={assistantInfo} />

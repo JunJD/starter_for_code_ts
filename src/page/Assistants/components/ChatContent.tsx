@@ -15,7 +15,8 @@ import ReplyRoundedIcon from '@mui/icons-material/ReplyRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
 import { AssistantType } from '@/common/types/assistant'
 import { threadsDelete } from '@/server/threads.modules/threads.service'
-
+import { threadListState } from '@/RecoilAtomStore/atom/gpt/threadList'
+import { useSetRecoilState } from 'recoil'
 type ChatContentProps = {
 	assistantInfo: AssistantType | null
 }
@@ -25,7 +26,15 @@ const ChatContent: FC<ChatContentProps> = ({ assistantInfo = {} as AssistantType
 		<div>null</div>
 	)
 	const [open, setOpen] = useState([false, false, false])
+	const setThreadList = useSetRecoilState(threadListState)
 
+	const handleDelete = () =>{
+		setThreadList(prev=>{
+			return prev.filter(it=>it.id!==assistantInfo.key)
+		})
+		handleSnackbarClose(2)
+	}
+	
 	const handleSnackbarOpen = (index: number) => {
 		const updatedOpen = [...open]
 		updatedOpen[index] = true
@@ -145,7 +154,7 @@ const ChatContent: FC<ChatContentProps> = ({ assistantInfo = {} as AssistantType
 					<Snackbar
 						color="danger"
 						open={open[2]}
-						onClose={() => handleSnackbarClose(2)}
+						onClose={() => handleDelete()}
 						anchorOrigin={{ vertical: 'bottom', horizontal: 'right' }}
 						startDecorator={<CheckCircleRoundedIcon />}
 						endDecorator={
@@ -195,7 +204,7 @@ const ChatContent: FC<ChatContentProps> = ({ assistantInfo = {} as AssistantType
 						>
 							From
 						</Typography>
-						<Tooltip size="sm" title="Copy email" variant="outlined">
+						<Tooltip size="sm" title="Copy AIModelName" variant="outlined">
 							<Chip size="sm" variant="soft" color="primary" onClick={() => { }}>
 								{assistantInfo?.mode?.name}
 							</Chip>

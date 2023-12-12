@@ -17,7 +17,6 @@ const AssistantList: FC<{ data: Context[] }> = ({ data }) => {
 
 	const handleTo = (key: string) => {
 		navigate(key)
-
 	}
 	useEffect(() => {
 		params.id && setActive(params.id)

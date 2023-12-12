@@ -1,12 +1,4 @@
-import store, { defaultTables } from '@/localBase'
 import { Message, ResultMessage, Thread, Thread2, listResult } from '../types'
-
-const threadTablePromise = (async()=>{
-	if(defaultTables.includes('thread')){
-		await store.awaitReady()
-		return store.getTbale('thread')
-	}
-})()
 export const messageCreate = async(params: Message, threadId: Thread['id']): Promise<ResultMessage> => {
 	const response = await fetch(`${process.env.FETCH_BASE_URL}/v1/threads/${threadId}/messages`, {
 		method: 'POST',
@@ -38,7 +30,7 @@ export const messageRetrieve = async(threadId: Thread['id'], messageId:Message['
 	return message
 }
 
-export const messageListByThread = async(threadId: Thread['id']): Promise<ResultMessage> => {
+export const messageListByThread = async(threadId: Thread['id']): Promise<ResultMessage[]> => {
 	const response = await fetch(`${process.env.FETCH_BASE_URL}/v1/threads/${threadId}/messages`, {
 		method: 'GET',
 		headers: {
@@ -48,22 +40,7 @@ export const messageListByThread = async(threadId: Thread['id']): Promise<Result
 		},
 	})
 	
-	const messagelist = await response.json()
-
-	const threadTable = await threadTablePromise
-	if(threadTable) {
-		const curr =  await threadTable.getItem(threadId)
-
-		if(curr) {
-			threadTable.setItem(threadId, {
-				...curr,
-				messagelist
-			}).then(function (value) {
-				console.log(value)
-			})
-		}
-
-	}
+	const { data: messagelist } = await response.json()
 	
 	return messagelist
 }

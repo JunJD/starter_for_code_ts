@@ -152,5 +152,6 @@ export type DeleteResult = {
 export type CreateResult = {
     id: string,
     object: ApiObjectType,
+    created_at: string,
     metadata: Metadata<string>
 }

@@ -5,20 +5,20 @@ import Button from '@mui/joy/Button'
 import { FocusTrap } from '@mui/base/FocusTrap'
 import CreateRoundedIcon from '@mui/icons-material/CreateRounded'
 import AssistantList from '@/components/AssistantList'
-import {  useEffect, useState } from 'react'
+import { useState } from 'react'
 import PageMain from '@/components/PageMain'
 import { useRecoilValue } from 'recoil'
 import { Outlet } from 'react-router-dom'
 import WriteChats from '@/components/WriteChats'
 import { threadsCreate } from '@/server/threads.modules/threads.controller'
-import { Assistant2, Run, Thread, Thread2 } from '@/server/types'
+import { Assistant2, Run, Thread } from '@/server/types'
 import { CreateRunResult, runCreate } from '@/server/run.modules/run.controller'
 import { runRetrieve } from '@/server/run.modules/run.service'
 import { assistantListState } from '@/RecoilAtomStore/atom/gpt/asssistantList'
-import { useRecoilState } from 'recoil'
-import { threadListState } from '@/RecoilAtomStore/atom/gpt/threadList'
+import { useRecoilState, useSetRecoilState } from 'recoil'
 import { contextListState } from '@/RecoilAtomStore/Selector/gpt/contextList'
 import { messageListByThread } from '@/server/messages.modules/messages.service'
+import { findAssByThreadId, findMsgByThreadId, threadListState } from '@/RecoilAtomStore/atom/gpt/threadList'
 
 enum executeEnum {
 	continue,
@@ -29,16 +29,8 @@ const Assistants = () => {
 	const [open, setOpen] = useState(false)
 
 	const [assistants] = useRecoilState<Assistant2[]>(assistantListState)
-	const [threadList, setThreadList] = useRecoilState<Thread2[]>(threadListState)
+	const setThreadList = useSetRecoilState(threadListState)
 	const contextList = useRecoilValue(contextListState)
-	
-
-	useEffect(()=>{
-		console.log('contextList',contextList)
-	},[contextList])
-	useEffect(()=>{
-		console.log('threadList',threadList)
-	},[threadList])
 
 
 	const onSend = async (form: { [k: string]: FormDataEntryValue }) => {
@@ -51,27 +43,28 @@ const Assistants = () => {
 				title: form.title as string
 			},
 		})
-		console.log('create thread success==>', thread)
-		// const message = await messageCreate({
-		// 	role: 'user',
-		// 	content: form.userFirstMessage as string
-		// }, thread.id)
-		// console.log('create thread success==>', message)
 		const done = await runFun({
 			assistantId: form.assistant as string
 		}, thread.id)
-		if(done) {
-			const result = await messageListByThread(thread.id)
-			console.table(result)
-			setThreadList([])
-			// getAssistantList()
+		if (done) {
+			const data = await messageListByThread(thread.id)
+			setThreadList(prev => {
+				return [...prev, {
+					id: thread.id,
+					createdAt: thread.created_at,
+					title: thread.metadata.title,
+					firstMsg: findMsgByThreadId(thread.id, [data]),
+					assistants: findAssByThreadId(thread.id, [data]),
+					messagelist: [data]
+				}]
+			})
 		}
 
 	}
 
 	const runFun = async (params: Run, threadId: Thread['id']) => {
 		const run = await runCreate({ ...params }, threadId)
-		if(!run) return
+		if (!run) return
 		const execute = await resultOfAwait(run, 1000)
 		if (execute === executeEnum.continue) {
 			await runRetrieveFun(run.id, threadId)

@@ -11,7 +11,7 @@ export const contextListState = selector<Context[]>({
 
 		return list.map(thread => {
 			let assistant: Assistant2 = {} as Assistant2
-			thread.assistants.forEach(assistantId => {
+			thread.assistants?.forEach(assistantId => {
 				assistant = list2.find(a => a.id === assistantId) as Assistant2
 			})
 			return {
