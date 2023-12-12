@@ -4,22 +4,22 @@ import remoteFetchInitValEffect from '../../effect/remoteFetchInitValEffect'
 import { threadsListGet } from '@/server/threads.modules/threads.service'
 import { messageListGet } from '@/server/messages.modules/messages.service'
 
-export const findMsgByThreadId = (threadId: string, messagelist: ResultMessage[][]): Thread2['firstMsg'] => {
-	const firstMsg = new Set()
+export const findMsgByThreadId = (threadId: string, messagelist: ResultMessage[][]): Thread2['msgs'] => {
+	const msgs = new Set()
 	if (messagelist && Array.isArray(messagelist)) {
 		messagelist.forEach(messages => {
 			messages.forEach(msg => {
-				if (msg.thread_id === threadId && msg.role === 'assistant') {
+				if (msg.thread_id === threadId) {
 					msg.content.forEach(con => {
 						if (con.type === 'text') {
-							firstMsg.add(con.text.value)
+							msgs.add([msg.role, con.text.value])
 						}
 					})
 				}
 			})
 		})
 	}
-	return Array.from(firstMsg).filter(Boolean).join('\n')
+	return Array.from(msgs).filter(Boolean) as Thread2['msgs']
 }
  
 export const findAssByThreadId = (threadId: string, messagelist: ResultMessage[][]): Thread2['assistants'] => {
@@ -47,7 +47,8 @@ const fetch = async () => {
 	return {
 		data: res.data.map(i => ({
 			...i,
-			firstMsg: findMsgByThreadId(i.id, messagelist),
+			msgs: findMsgByThreadId(i.id, messagelist),
+			firstMsg: findMsgByThreadId(i.id, messagelist)[0][1],
 			assistants: findAssByThreadId(i.id, messagelist),
 			messagelist
 		}))

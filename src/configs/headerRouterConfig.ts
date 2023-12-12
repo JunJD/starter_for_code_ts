@@ -1,4 +1,4 @@
-export type ConfigEnum = 'chats' | 'files' | 'setting'
+export type ConfigEnum = 'assistant' | 'files' | 'setting'
 export interface RouterConfigType {
     name: string,
     key: ConfigEnum
@@ -8,7 +8,7 @@ export const getHeaderRouterConfig = (): RouterConfigType[] => {
 	return [
 		{
 			name: '我的助手',
-			key: 'chats'
+			key: 'assistant'
 		},
 		{
 			name: '文件管理',

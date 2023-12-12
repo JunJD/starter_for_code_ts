@@ -35,7 +35,7 @@ const headerRouterConfiglist = getHeaderRouterConfig()
 export default function Header() {
 	const navigate = useNavigate()
 	const location = useLocation()
-	const [currentActive, setActive] = useState<ConfigEnum>('chats')
+	const [currentActive, setActive] = useState<ConfigEnum>('assistant')
 	const [open, setOpen] = useState(false)
 	const handleTo = (key: ConfigEnum) => {
 		navigate(key)

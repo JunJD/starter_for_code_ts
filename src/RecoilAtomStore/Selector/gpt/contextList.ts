@@ -26,7 +26,8 @@ export const contextListState = selector<Context[]>({
 				tag: 'learn',
 				date: thread.createdAt,
 				title: thread.title,
-				body: thread.firstMsg,
+				summary: thread.firstMsg,
+				body: thread.msgs,
 				color: 'warning.400',
 			}
 		}) as unknown as Context[]

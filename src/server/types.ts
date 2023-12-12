@@ -8,6 +8,7 @@ export interface Thread2 {
 	id: string,
 	createdAt: string,
 	title: string,
+    msgs: Array<[Role,string]>
     firstMsg: string,
     assistants: Assistant2['id'][]
 	messagelist?: ResultMessage[][]

@@ -13,28 +13,40 @@ import DeleteRoundedIcon from '@mui/icons-material/DeleteRounded'
 import ForwardToInboxRoundedIcon from '@mui/icons-material/ForwardToInboxRounded'
 import ReplyRoundedIcon from '@mui/icons-material/ReplyRounded'
 import CheckCircleRoundedIcon from '@mui/icons-material/CheckCircleRounded'
-import { AssistantType } from '@/common/types/assistant'
+import { Context } from '@/common/types/assistant'
 import { threadsDelete } from '@/server/threads.modules/threads.service'
 import { threadListState } from '@/RecoilAtomStore/atom/gpt/threadList'
-import { useSetRecoilState } from 'recoil'
+import { useRecoilState, useRecoilCallback } from 'recoil'
+import { useNavigate } from 'react-router-dom'
+import { contextListState } from '@/RecoilAtomStore/Selector/gpt/contextList'
 type ChatContentProps = {
-	assistantInfo: AssistantType | null
+	assistantInfo: Context | null
 }
 
-const ChatContent: FC<ChatContentProps> = ({ assistantInfo = {} as AssistantType }) => {
+const ChatContent: FC<ChatContentProps> = ({ assistantInfo = {} as Context }) => {
 	if (!assistantInfo) return (
 		<div>null</div>
 	)
 	const [open, setOpen] = useState([false, false, false])
-	const setThreadList = useSetRecoilState(threadListState)
+	const [, setThreadList] = useRecoilState(threadListState)
+	const navigate = useNavigate()
+	const contextListCallback = useRecoilCallback(({snapshot}) => async () => {
+		const UpdatedList = await snapshot.getPromise(contextListState)
+		if(Array.isArray(UpdatedList) && UpdatedList.length) {
+			navigate('/assistant/' + UpdatedList[UpdatedList.length - 1]?.key)
+		} else {
+			navigate('/assistant')
+		}
+	})
 
-	const handleDelete = () =>{
-		setThreadList(prev=>{
-			return prev.filter(it=>it.id!==assistantInfo.key)
+	const handleDelete = () => {
+		setThreadList(prev => {
+			return prev.filter(it => it.id !== assistantInfo.key)
 		})
+		contextListCallback()
 		handleSnackbarClose(2)
 	}
-	
+
 	const handleSnackbarOpen = (index: number) => {
 		const updatedOpen = [...open]
 		updatedOpen[index] = true
@@ -72,7 +84,7 @@ const ChatContent: FC<ChatContentProps> = ({ assistantInfo = {} as AssistantType
 			>
 				<Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
 					<Avatar>
-						{assistantInfo?.title?.slice(0,1)}
+						{assistantInfo?.title?.slice(0, 1)}
 					</Avatar>
 					<Box sx={{ ml: 2 }}>
 						<Typography level="title-sm" textColor="text.primary" mb={0.5}>
@@ -213,9 +225,29 @@ const ChatContent: FC<ChatContentProps> = ({ assistantInfo = {} as AssistantType
 				</Box>
 			</Box>
 			<Divider />
-			<Typography level="body-sm" mt={2} mb={2}>
-				{assistantInfo ? assistantInfo.body : '-'}
-			</Typography>
+			<Box
+				sx={{
+					display: 'flex',
+					flexDirection: 'column-reverse',
+				}}>
+				{
+					assistantInfo.body.map((item, index) => {
+						return (
+							<Box
+								key={index}
+							>
+								<Typography level="body-sm" mt={2} mb={2}>
+									{item ? item[0] : '-'}
+								</Typography>
+								<Typography level="body-sm" mt={2} mb={2}>
+									{item ? item[1] : '-'}
+								</Typography>
+							</Box>
+						)
+					})
+				}
+			</Box>
+
 		</Sheet>
 	)
 }

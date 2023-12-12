@@ -2,13 +2,12 @@ import { contextListState } from '@/RecoilAtomStore/Selector/gpt/contextList'
 import { DEFAULT_GRID_COLUMNS_CONFIG } from '@/common/context/SettingsContext'
 import { useSettings } from '@/common/hooks/useSettings'
 import { Context } from '@/common/types/assistant'
-// import { getAssistantById } from '@/mock'
-import ChatContent from '@/page/Assistants/components/ChatContent'
+import AssistantsContent from '@/page/Assistants/components/AssistantsContent'
 import { useLayoutEffect, useMemo } from 'react'
 import { useParams } from 'react-router-dom'
 import { useRecoilValue } from 'recoil'
 
-const Chat = () => {
+const ChatOfAssistants = () => {
 	const params = useParams()
 	const contextList = useRecoilValue(contextListState)
 
@@ -29,7 +28,7 @@ const Chat = () => {
 
 
 	return (
-		<ChatContent assistantInfo={assistantInfo} />
+		<AssistantsContent assistantInfo={assistantInfo} />
 	)
 }
-export default Chat
+export default ChatOfAssistants

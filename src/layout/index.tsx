@@ -23,7 +23,7 @@ export default function Layout() {
 
 	const navigate = useNavigate()
 	const location = useLocation()
-	const [currentActive, setActive] = useState<ConfigEnum>('chats')
+	const [currentActive, setActive] = useState<ConfigEnum>('assistant')
 
 	const handleTo = (key: ConfigEnum) => {
 		navigate(key)

@@ -21,7 +21,7 @@ const ScrollWrap: FC<ScrollWrapProps> = ({ children, sx }) => {
 			sx={{
 				overflow: 'auto',
 				height: 'auto',
-				...(getDeviceName() !== 'Mac' && {
+				...(getDeviceName() === 'Mac' && {
 					'&::-webkit-scrollbar': {
 						width: '6px',
 						height: '6px',

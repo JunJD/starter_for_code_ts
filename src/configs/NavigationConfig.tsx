@@ -126,7 +126,7 @@ type configListType = Record<ConfigEnum, groupType[]>;
 
 export const getNavigationConfigList = (): configListType => {
 	return {
-		'chats': assistantConfig,
+		'assistant': assistantConfig,
 		'files': fileConfig,
 		'setting': settingConfig
 	}

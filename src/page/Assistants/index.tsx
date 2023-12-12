@@ -7,8 +7,8 @@ import CreateRoundedIcon from '@mui/icons-material/CreateRounded'
 import AssistantList from '@/components/AssistantList'
 import { useState } from 'react'
 import PageMain from '@/components/PageMain'
-import { useRecoilValue } from 'recoil'
-import { Outlet } from 'react-router-dom'
+import { useRecoilValue, useRecoilCallback } from 'recoil'
+import { Outlet, useNavigate } from 'react-router-dom'
 import WriteChats from '@/components/WriteChats'
 import { threadsCreate } from '@/server/threads.modules/threads.controller'
 import { Assistant2, Run, Thread } from '@/server/types'
@@ -31,8 +31,18 @@ const Assistants = () => {
 	const [assistants] = useRecoilState<Assistant2[]>(assistantListState)
 	const setThreadList = useSetRecoilState(threadListState)
 	const contextList = useRecoilValue(contextListState)
+	const navigate = useNavigate()
 
 
+	const contextListCallback = useRecoilCallback(({snapshot}) => async () => {
+		const UpdatedList = await snapshot.getPromise(contextListState)
+		if(Array.isArray(UpdatedList) && UpdatedList.length) {
+			navigate('/assistant/' + UpdatedList[UpdatedList.length - 1]?.key)
+		} else {
+			navigate('/assistant')
+		}
+	})
+	
 	const onSend = async (form: { [k: string]: FormDataEntryValue }) => {
 		const thread = await threadsCreate({
 			messages: [{
@@ -53,11 +63,13 @@ const Assistants = () => {
 					id: thread.id,
 					createdAt: thread.created_at,
 					title: thread.metadata.title,
-					firstMsg: findMsgByThreadId(thread.id, [data]),
+					msgs: findMsgByThreadId(thread.id, [data]),
+					firstMsg: findMsgByThreadId(thread.id, [data])[0][1],
 					assistants: findAssByThreadId(thread.id, [data]),
 					messagelist: [data]
 				}]
 			})
+			contextListCallback()
 		}
 
 	}
@@ -130,7 +142,7 @@ const Assistants = () => {
 							My assistant
 						</Typography>
 						<Typography level="title-sm" textColor="text.tertiary">
-							{contextList.length} chats
+							{contextList.length} assistant
 						</Typography>
 					</Box>
 					<Button

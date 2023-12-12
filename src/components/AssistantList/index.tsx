@@ -13,7 +13,7 @@ import { useNavigate, useParams } from 'react-router-dom'
 const AssistantList: FC<{ data: Context[] }> = ({ data }) => {
 	const navigate = useNavigate()
 	const params = useParams()
-	const [currentActive, setActive] = useState<string>('chats')
+	const [currentActive, setActive] = useState<string>('assistant')
 
 	const handleTo = (key: string) => {
 		navigate(key)
@@ -28,6 +28,7 @@ const AssistantList: FC<{ data: Context[] }> = ({ data }) => {
 					borderLeft: '2px solid',
 					borderLeftColor: 'var(--joy-palette-primary-outlinedBorder)',
 				},
+				flexDirection: 'column-reverse'
 			}}
 		>
 			{data.map((item, index) => (
@@ -75,7 +76,7 @@ const AssistantList: FC<{ data: Context[] }> = ({ data }) => {
 									</Typography>
 									<Typography sx={{
 
-									}} level="body-sm">{item.body}</Typography>
+									}} level="body-sm">{item.summary}</Typography>
 								</div>
 							</Box>
 						</ListItemButton>

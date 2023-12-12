@@ -1,4 +1,4 @@
-import { Assistant2 } from '@/server/types'
+import { Assistant2, Role } from '@/server/types'
 
 export type TagType = 'learn' | 'work'
 export type ModeEnum = 'gpt-3.5-turbo'| 'gpt-4.0'
@@ -14,7 +14,7 @@ export interface AssistantType {
     status: StatusType,
     date: string,
     title: string,
-    body: string,
+    body: Array<[Role, string]>,
     color: string,
 }
 export interface Context {
@@ -25,7 +25,8 @@ export interface Context {
     status: StatusType,
     date: string,
     title: string,
-    body: string,
+    summary: string,
+    body: Array<[Role, string]>,
     color: string,
     assistant: Assistant2[]
 }

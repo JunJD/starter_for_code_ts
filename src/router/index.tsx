@@ -3,10 +3,11 @@ import { Navigate, createBrowserRouter, redirect } from 'react-router-dom'
 import Layout from '@/layout'
 import Files from '@/page/Files'
 import Assistant from '@/page/Assistants'
-import Chat from '@/page/Chat'
+import ChatOfAssistants from '@/page/ChatOfAssistants'
 import Setting from '@/page/Setting'
 import SettingRecord from '@/page/SettingRecord'
 import CreateAssistans from '@/page/CreateAssistans'
+import AssistantsUnawakening from '@/page/Assistants/components/AssistantsUnawakening'
 
 const muiRouter = createBrowserRouter([
 	{
@@ -15,10 +16,10 @@ const muiRouter = createBrowserRouter([
 		children: [
 			{
 				path: '/',
-				element: <Navigate to="/chats" replace />,
+				element: <Navigate to="/assistant" replace />,
 			},
 			{
-				path: '/chats',
+				path: '/assistant',
 				element: <Assistant/>,
 				loader: async() => {
 					return new Promise((resolve)=>{
@@ -29,15 +30,18 @@ const muiRouter = createBrowserRouter([
 				},
 				children: [
 					{
-						path: '/chats',
-						loader: async(content) => {
-							console.log(content)
-							return redirect('/chats/thread_DXbgCJ8krUj0rCAgCsZ3VTOQ')
+						path: '/assistant',
+						loader: async() => {
+							return redirect('/assistant/null')
 						},
 					},
 					{
+						path: 'null',
+						element: <AssistantsUnawakening/>,
+					},
+					{
 						path: ':id',
-						element: <Chat/>,
+						element: <ChatOfAssistants/>,
 					}
 				]
 			},
